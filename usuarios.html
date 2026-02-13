@@ -15,6 +15,71 @@
   <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./assets/css/main.css">
 
+  <style>
+    /* Estilo del botón 'Comenzar Test' mejorado */
+    .btn-test {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      margin-top: auto; /* Empuja el botón al fondo de la tarjeta */
+      
+      /* Degradado idéntico al Login / Branding ONE */
+      background: linear-gradient(135deg, #0b4a6e 0%, #020f27 100%);
+      color: white;
+      
+      border: none;
+      border-radius: 12px; /* Bordes más redondeados y modernos */
+      font-family: 'Exo 2', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      
+      /* Sombra suave */
+      box-shadow: 0 4px 15px rgba(11, 74, 110, 0.3);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Efecto Hover (al pasar el mouse) */
+    .btn-test:hover {
+      transform: translateY(-3px); /* Se eleva un poco */
+      box-shadow: 0 8px 25px rgba(11, 74, 110, 0.5); /* Sombra más intensa */
+      background: linear-gradient(135deg, #0f608c 0%, #041a42 100%); /* Ligeramente más claro */
+    }
+
+    /* Efecto Active (al hacer click) */
+    .btn-test:active {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(11, 74, 110, 0.3);
+    }
+
+    /* Estilo de la flecha */
+    .btn-test .arrow {
+      font-size: 1.2em;
+      transition: transform 0.3s ease;
+    }
+
+    /* Animación de la flecha al hacer hover */
+    .btn-test:hover .arrow {
+      transform: translateX(5px);
+    }
+
+    /* Ajuste para las tarjetas para asegurar que el botón quede bien */
+    .eval-card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .eval-desc {
+      flex-grow: 1; /* Esto hace que la descripción ocupe el espacio y empuje el botón abajo */
+      margin-bottom: 20px;
+    }
+  </style>
+
 </head>
 
 
