@@ -1,0 +1,2 @@
+export const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyBvGHJvjRrPoKB1xeG0jDy6QnPoyl41zWLr42DIcvs0OR5cI70Fgw4c9I7bvw3TBoh/exec';
+export const DB_GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwbjRNShGQGzOeJzUEGuYm43iOGsco5shDlrlH0C3ieTnqVdzoqI3rQiDoXQaHqpEGY/exec';
