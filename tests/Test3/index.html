@@ -18,6 +18,34 @@
       padding: 24px;
       color: #1e293b;
     }
+
+    /* BOTÓN VOLVER A USUARIOS */
+    .btn-back {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #020f27;
+      border: 2px solid #020f27;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      z-index: 1000;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.2s;
+      font-size: 14px;
+    }
+    .btn-back:hover {
+      transform: scale(1.05);
+      background: #020f27;
+      color: white;
+    }
+    @media print { .btn-back { display: none; } }
+
     .container {
       max-width: 900px;
       margin: 0 auto;
@@ -244,6 +272,13 @@
   </style>
 </head>
 <body>
+
+  <a href="../../usuarios.html" class="btn-back">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M15 18l-6-6 6-6"/>
+    </svg>
+    Volver a Usuarios
+  </a>
 
 <div class="container">
   
@@ -617,7 +652,7 @@
     console.log("Enviando a la base de datos:", payload);
 
     // URL DE GOOGLE APPS SCRIPT
-    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwJihhyrJSkcnhyDbeBeYR83RoL93MTCwWbOOYGqslpz8Z4SlbAf_NrpOiTWnGVSk_d/exec';
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzJj_7uFx4R6rsS737YsgWt-EqmPCyLofj-ZsFjjdi32DezcaUE9PF0yPzvJKTm5r09bw/exec';
     
     fetch(GOOGLE_SCRIPT_URL, { 
       method: 'POST',
