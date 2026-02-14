@@ -18,8 +18,35 @@
       padding: 24px;
       color: #1e293b;
     }
+    
+    /* BOTÓN VOLVER A USUARIOS */
+    .btn-back {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #020f27;
+      border: 2px solid #020f27;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      z-index: 1000;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.2s;
+      font-size: 14px;
+    }
+    .btn-back:hover {
+      transform: scale(1.05);
+      background: #020f27;
+      color: white;
+    }
+    @media print { .btn-back { display: none; } }
+
     .container {
-      /* VOLVEMOS AL ANCHO ORIGINAL PARA QUE QUEPAN LOS TESTS */
       max-width: 1000px;
       margin: 0 auto;
       background: rgba(255, 255, 255, 0.96);
@@ -31,7 +58,7 @@
       overflow: hidden;
     }
 
-    /* ESTILO LOGO (MANTENEMOS EL TAMAÑO UN POCO MÁS GRANDE: 100px) */
+    /* ESTILO LOGO (100px) */
     .logo-hueco {
       width: 100px;
       height: 100px;
@@ -212,6 +239,13 @@
   </style>
 </head>
 <body>
+
+  <a href="../../usuarios.html" class="btn-back">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M15 18l-6-6 6-6"/>
+    </svg>
+    Volver a Usuarios
+  </a>
 
 <div class="container">
   
@@ -888,7 +922,7 @@
     console.log("Enviando a la base de datos:", payload);
     
     // URL ACTUALIZADA DE GOOGLE APPS SCRIPT
-    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbymURTE-mBgX4bmsmqoiYF8EXGaSAfIMV-cqO4br_M3rtxH_cW7hCqzE4zlPIb18afJTg/exec';
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwtRjfalEt9fuktj3gCUKRr66HoOSRvUdswRGmDPTKDbjknAAke4Umw9bTBR4OhzKPHyw/exec';
     
     fetch(GOOGLE_SCRIPT_URL, { 
       method: 'POST',
