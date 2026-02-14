@@ -30,6 +30,33 @@
       background-attachment: fixed;
     }
 
+    /* BOTÓN VOLVER A USUARIOS */
+    .btn-back {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #020f27;
+      border: 2px solid #020f27;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      z-index: 1000;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.2s;
+      font-size: 14px;
+    }
+    .btn-back:hover {
+      transform: scale(1.05);
+      background: #020f27;
+      color: white;
+    }
+    @media print { .btn-back { display: none; } }
+
     .container {
       width: min(850px, 100% - 48px);
       margin: 24px auto;
@@ -509,7 +536,16 @@
 </head>
 
 <body>
+
+  <a href="../../usuarios.html" class="btn-back">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M15 18l-6-6 6-6"/>
+    </svg>
+    Volver a Usuarios
+  </a>
+
   <div class="container">
+    
     <div class="logo-hueco"></div>
 
     <div id="registrationScreen">
@@ -1147,7 +1183,7 @@
       });
     }
 
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxHd_JOLhtHT0wxStM8JaO48q_0bw2fyFriQBNBG43SUlC3b0lqQ2iHAU4aSwkSOXIU/exec";
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzgaEk6vm6I2UYuxTCl5z8YoIHRYLTHFIT5eNVhcOG4-suWhDENjjBjrH0Ua3Tny9vQ/exec";
 
     async function sendToGoogleSheets(scores, verificationScore) {
       const today = new Date();
