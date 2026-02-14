@@ -42,6 +42,33 @@
             z-index: -1;
         }
 
+        /* BOTÓN VOLVER A USUARIOS */
+        .btn-back {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #020f27;
+            border: 2px solid #020f27;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s;
+            font-size: 14px;
+        }
+        .btn-back:hover {
+            transform: scale(1.05);
+            background: #020f27;
+            color: white;
+        }
+        @media print { .btn-back { display: none; } }
+
         .container {
             max-width: 850px;
             margin: 0 auto;
@@ -53,7 +80,7 @@
             margin-top: 60px;
         }
 
-        /* ESTILO LOGO AÑADIDO (100px, centrado, igual que DAT/IPP) */
+        /* ESTILO LOGO AÑADIDO (100px) */
         .logo-hueco {
             width: 100px;
             height: 100px;
@@ -725,80 +752,21 @@
             flex-wrap: wrap;
         }
 
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
+        /* === MODIFICACIÓN DEL LOGO === */
+        /* Estilo para el logo redondo centrado */
+        .logo-hueco {
+            width: 100px;
+            height: 100px;
+            border-radius: 999px;
+            background-image: url('./img/logo-one.png');
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 0 0 1px rgba(198,201,215,.18), 0 0 40px rgba(107,225,227,.18);
+            position: relative;
             overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
+            margin: 0 auto 20px auto;
         }
 
-        .btn-back {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.9);
-            color: #020f27 !important;
-            border: 2px solid #020f27;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            text-decoration: none;
-            font-weight: 700;
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-            transition: all 0.3s ease;
-            font-size: 14px;
-            backdrop-filter: blur(4px);
-        }
-
-        .btn-back:hover {
-            transform: translateY(-2px);
-            background: #020f27;
-            color: white !important;
-            box-shadow: 0 6px 15px rgba(2, 15, 39, 0.2);
-        }
-
-        .btn-back svg {
-            transition: transform 0.3s ease;
-        }
-
-        .btn-back:hover svg {
-            transform: translateX(-3px);
-        }
-
-        /* Ocultar en móviles muy pequeños si molesta, o ajustar */
-        @media (max-width: 480px) {
-            .btn-back {
-                padding: 8px 14px;
-                font-size: 12px;
-            }
-        }
-
-        @media print {
-            .btn-back {
-                display: none !important;
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
     </style>
 </head>
 
@@ -810,6 +778,7 @@
         </svg>
         Volver a Usuarios
     </a>
+
     <div class="container" id="main-container">
         <div class="logo-hueco"></div>
 
@@ -967,7 +936,7 @@
 
         // URL de Apps Script que guarda en la hoja "Domino D48"
         const SAVE_RESULTS_URL =
-            "https://script.google.com/macros/s/AKfycbzl6XSnf3DUUkVxp0zVXzK9eyNmtxPEw8ioILgswxejijYyWoIRjFlQVosXIWrY634P/exec";
+            "https://script.google.com/macros/s/AKfycbzHuXCmk5H-eydShhghEvrMB397xaJAWKKXzr7fHUzp9OBUgLIG9DBPD80zta06exlUYQ/exec";
 
         // ========================
         // ÍTEMS
