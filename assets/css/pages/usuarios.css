@@ -1,37 +1,37 @@
-body[data-page="usuarios"] #login-view{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  min-height:100vh;
-  padding:2rem;
+body[data-page="usuarios"] #login-view {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
 }
 
-body[data-page="usuarios"] .login-container{
-  width:100%;
-  max-width:460px;
+body[data-page="usuarios"] .login-container {
+  width: 100%;
+  max-width: 460px;
 }
 
-body[data-page="usuarios"] .login-card{
-  padding:2.5rem 2rem;
+body[data-page="usuarios"] .login-card {
+  padding: 2.5rem 2rem;
 }
 
-body[data-page="usuarios"] .login-title{
+body[data-page="usuarios"] .login-title {
   font-family: var(--font-title);
-  font-size:2rem;
-  font-weight:800;
-  margin-bottom:.4rem;
-  letter-spacing:-.01em;
-  text-shadow: 0 10px 40px rgba(0,0,0,.55);
-  text-align:center;
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: .4rem;
+  letter-spacing: -.01em;
+  text-shadow: 0 10px 40px rgba(0, 0, 0, .55);
+  text-align: center;
 }
 
-body[data-page="usuarios"] .login-subtitle{
-  font-size:.92rem;
-  color: rgba(198,201,215,.86);
-  text-align:center;
+body[data-page="usuarios"] .login-subtitle {
+  font-size: .92rem;
+  color: rgba(198, 201, 215, .86);
+  text-align: center;
 }
 
-/* Estilos para el botón de login */
+/* === ESTILOS BOTÓN LOGIN (Referencia) === */
 body[data-page="usuarios"] .btn-primary {
   display: inline-block;
   width: 100%;
@@ -64,7 +64,7 @@ body[data-page="usuarios"] .btn-primary:disabled {
   cursor: not-allowed;
 }
 
-/* Estilos para el link de volver */
+/* Link volver */
 body[data-page="usuarios"] .back-link {
   display: block;
   text-align: center;
@@ -79,51 +79,161 @@ body[data-page="usuarios"] .back-link:hover {
   color: rgba(255, 255, 255, 1);
 }
 
-body[data-page="usuarios"] #panel-view{
-  display:flex;
-  flex-direction:column;
-  min-height:100vh;
+/* === PANEL PRINCIPAL === */
+body[data-page="usuarios"] #panel-view {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-body[data-page="usuarios"] .header-inner{
+body[data-page="usuarios"] .header-inner {
   max-width: var(--container);
+  display: flex;
+  justify-content: space-between; /* Separa logo de acciones */
+  align-items: center;
 }
 
-body[data-page="usuarios"] .main-content{
-  flex:1;
+/* Estilos para el área del usuario en el header */
+body[data-page="usuarios"] .header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+body[data-page="usuarios"] .user-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+}
+
+body[data-page="usuarios"] .user-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #10b981; /* Verde online */
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(16, 185, 129, 0.5);
+}
+
+/* === BOTÓN CERRAR SESIÓN (Estilo Admin) === */
+body[data-page="usuarios"] .btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 50px; /* Forma de píldora */
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+body[data-page="usuarios"] .btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.8);
+  transform: translateY(-1px);
+}
+
+/* Contenido Principal */
+body[data-page="usuarios"] .main-content {
+  flex: 1;
   max-width: var(--container);
-  width:100%;
-  margin:0 auto;
-  padding:2rem 1.5rem 2.5rem;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 2.5rem;
 }
 
-body[data-page="usuarios"] .evaluations-grid{
-  display:grid;
+/* Grid de Evaluaciones */
+body[data-page="usuarios"] .evaluations-grid {
+  display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap:1.5rem;
+  gap: 1.5rem;
 }
 
-body[data-page="usuarios"] .eval-card{
-  display:none;
-  padding:1.8rem;
+body[data-page="usuarios"] .eval-card {
+  display: none;
+  padding: 1.8rem;
   transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
+  /* Asegura que el contenido se distribuya verticalmente */
+  flex-direction: column;
+  height: 100%; 
 }
 
-body[data-page="usuarios"] .eval-card.visible{ display:block; }
+body[data-page="usuarios"] .eval-card.visible {
+  display: flex; /* Cambiado a flex para alinear botón al fondo */
+}
 
-body[data-page="usuarios"] .eval-card:hover{
+body[data-page="usuarios"] .eval-desc {
+  flex-grow: 1; /* Empuja el botón hacia abajo */
+  margin-bottom: 1.5rem;
+}
+
+body[data-page="usuarios"] .eval-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 28px 60px rgba(0,0,0,.65);
-  border-color: rgba(107,225,227,.30);
+  box-shadow: 0 28px 60px rgba(0, 0, 0, .65);
+  border-color: rgba(107, 225, 227, .30);
 }
 
-body[data-page="usuarios"] .no-tests-message{
-  display:none;
-  text-align:center;
-  padding:3rem 2rem;
+/* === BOTONES "COMENZAR TEST" (Estilo igual al Login) === */
+body[data-page="usuarios"] .btn-test {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 1.5rem;
+  
+  /* Mismo degradado que el login */
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  margin-top: auto;
 }
 
-@media (max-width: 768px){
-  body[data-page="usuarios"] .header-inner{ flex-wrap:wrap; }
-  body[data-page="usuarios"] .evaluations-grid{ grid-template-columns:1fr; }
+body[data-page="usuarios"] .btn-test:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+  background: linear-gradient(135deg, #708df5 0%, #8555b5 100%); /* Un poco más claro al hover */
+}
+
+body[data-page="usuarios"] .btn-test .arrow {
+  font-size: 1.2em;
+  transition: transform 0.3s ease;
+}
+
+body[data-page="usuarios"] .btn-test:hover .arrow {
+  transform: translateX(5px);
+}
+
+/* Mensaje sin tests */
+body[data-page="usuarios"] .no-tests-message {
+  display: none;
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+@media (max-width: 768px) {
+  body[data-page="usuarios"] .header-inner {
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+  
+  body[data-page="usuarios"] .header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  body[data-page="usuarios"] .evaluations-grid {
+    grid-template-columns: 1fr;
+  }
 }
