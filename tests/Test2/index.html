@@ -359,6 +359,68 @@
       display: none !important;
     }
 
+    /* === PANTALLA DE RESULTADOS === */
+    .results-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .results-icon {
+      font-size: 52px;
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+
+    .results-title {
+      color: #059669;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .results-msg {
+      font-size: 18px;
+      color: #475569;
+      margin-bottom: 8px;
+    }
+
+    .results-sub {
+      color: #64748b;
+      font-size: 14px;
+      margin-bottom: 32px;
+    }
+
+    .validity-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .validity-badge.saving {
+      background: #eff6ff;
+      color: #0b4a6e;
+      border: 2px solid #bfdbfe;
+    }
+
+    .validity-badge.success {
+      background: #ecfdf5;
+      color: #059669;
+      border: 2px solid #a7f3d0;
+    }
+
+    .validity-badge.error {
+      background: #fef2f2;
+      color: #dc2626;
+      border: 2px solid #fecaca;
+    }
+
     /* === RESPONSIVO PARA MÓVIL === */
     @media (max-width: 768px) {
       .container {
@@ -488,19 +550,14 @@
     </div>
 
     <div id="resultsScreen" class="hidden">
-      <h1 style="color: #059669;">¡Test Completado!</h1>
-      <div style="text-align: center; margin: 40px 0;">
-        <div style="font-size: 40px;">✅</div>
-        <p style="font-size: 18px; color: #475569; margin-top: 20px;">
-          Sus respuestas han sido registradas exitosamente.
-        </p>
-        <p style="color: #64748b;">Puede cerrar esta pestaña o volver al menú principal.</p>
+      <div class="results-card">
+        <div class="results-icon">✅</div>
+        <div class="results-title">¡Test Completado!</div>
+        <p class="results-msg">Sus respuestas han sido registradas exitosamente.</p>
+        <p class="results-sub">Puede cerrar esta pestaña o volver al menú principal.</p>
+        <span class="validity-badge saving" id="validityBox">Guardando datos...</span>
       </div>
-      
-      <div id="validityBox" style="text-align: center; margin-top: 20px; font-weight: bold; color: #0b4a6e;">
-        Guardando datos...
-      </div>
-      
+
       <div id="areasContainer"></div>
       <div class="profile-summary">
         <div id="profileCode"></div>
@@ -512,7 +569,7 @@
 
   <script>
     // DEFICIÓN DE URL AL PRINCIPIO PARA EVITAR ReferenceError
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxFWDzaw5HGzkosN8sbVZX3h36QZjk9K-Iwgw5kfgO9o1KzRvazkJyCKDz0jAGs6Z5D/exec";
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzDRXzZz2N4mZFx94avC1UwA_3UCpjeJMz83kY5GDaDRRUjDa_tRnnMSUmxde_0Odqp/exec";
 
     // ================== DATOS DEL TEST (MANTENIENDO TODOS TUS DATOS) ==================
     const triads = [
@@ -710,7 +767,7 @@
       ["Estudiar xenobiología", "Estudiar vida fuera de la Tierra (en teoría)"],
       ["Hacer investigación cuántica", "Investigar física cuántica"],
       ["Investigar computación cuántica", "Investigar computación basada en física cuántica"],
-      ["Investigar materia oscura", "Investigar la “materia invisible” del universo"],
+      ["Investigar materia oscura", "Investigar la \u201cmateria invisible\u201d del universo"],
       ["Hacer investigación de exoplanetas", "Investigar planetas fuera del sistema solar"],
       ["Estudiar bioimpresión", "Estudiar impresión 3D de tejidos"],
       ["Trabajar en cultivos celulares", "Trabajar con células en laboratorio"],
@@ -758,7 +815,7 @@
       });
     }
 
-    // ✅ aplicar una vez
+    // aplicar una vez
     rewriteMarkedActivities(triads);
 
 
@@ -875,7 +932,7 @@
       const s = sections[currentSection];
       const container = document.getElementById("sectionContainer");
 
-      let html = `<div class="section-title">Grupos ${s.start + 1} – ${s.end}</div>`;
+      let html = `<div class="section-title">Grupos ${s.start + 1} \u2013 ${s.end}</div>`;
 
       for (let i = s.start; i < s.end; i++) {
         const triad = triads[i];
@@ -900,7 +957,7 @@
                 </button>
                 <button class="choice-btn ${isMenos ? 'active-menos' : ''}" 
                         onclick="selectChoice(${i}, ${actIdx}, 'menos')">
-                  −
+                  \u2212
                 </button>
               </div>
             </div>
@@ -989,7 +1046,6 @@
       const scores = Array(10).fill(0);
       let verificationScore = 0;
 
-      // ✅ CORRECCIÓN CRÍTICA: Calcular puntuaciones sumando AMBAS áreas (más Y menos)
       triads.forEach((triad, idx) => {
         const ans = answers[idx];
         if (!ans || ans.mas === undefined || ans.menos === undefined) return;
@@ -997,27 +1053,20 @@
         const masKey = triad.keys[ans.mas];
         const menosKey = triad.keys[ans.menos];
 
-        // Sumar 1 al área de "más" Y al área de "menos"
         scores[masKey]++;
         scores[menosKey]++;
 
-        // Verificación: contar respuestas coherentes
         if (ans.mas !== ans.menos) verificationScore++;
       });
 
-      // ✅ CORRECCIÓN: Validación de escala V según manual (página 2)
-      // VÁLIDO: 31-39, DUDOSO: 28-32, INVÁLIDO: < 28 o > 39
       const esValido = verificationScore >= 31 && verificationScore <= 39;
       const estadoValidez = verificationScore < 28 ? 'INVALIDO' :
         verificationScore <= 32 ? 'DUDOSO' :
           verificationScore <= 39 ? 'VALIDO' : 'INVALIDO';
 
-      // Calcular percentiles (simplificado - en producción usar baremos)
-      // Para este ejemplo, usamos el puntaje directo como percentil aproximado
-      const maxPossible = triads.length / 3; // Cada área podría tener máximo esto
+      const maxPossible = triads.length / 3;
       const percentiles = scores.map(score => Math.round((score / maxPossible) * 100));
 
-      // Determinar código de perfil (2 áreas más altas)
       const areaScores = scores.map((score, idx) => ({ code: idx, score, percentile: percentiles[idx] }));
       areaScores.sort((a, b) => b.score - a.score);
 
@@ -1041,17 +1090,6 @@
     function showResults(results) {
       document.getElementById("testScreen").classList.add("hidden");
       document.getElementById("resultsScreen").classList.remove("hidden");
-
-      // MODIFICADO: NO MOSTRAR RESULTADOS
-      // Solo mostrar mensaje de guardado
-      document.getElementById('areasContainer').innerHTML = ""; // Limpiar áreas
-      document.getElementById('profileCode').innerText = "--"; // Ocultar código
-      document.getElementById('profileDescription').innerText = ""; // Ocultar descripción
-      document.querySelector('.profile-summary').style.display = 'none'; // Ocultar resumen
-      document.querySelector('h2:nth-of-type(1)').style.display = 'none'; // Ocultar título "Áreas de Interés"
-      document.getElementById('restartBtn').style.display = 'none'; // Ocultar botón reiniciar
-      
-      // El mensaje de "Guardando datos..." ya está en validityBox
     }
 
     function restartTest() {
@@ -1073,21 +1111,21 @@
       const today = new Date();
       const fecha = today.toLocaleDateString("es-ES", { year: "numeric", month: "2-digit", day: "2-digit" });
 
-      // Preparar respuestas: para cada tríada, guardamos mas y menos
       const respuestas = [];
       for (let i = 0; i < triads.length; i++) {
         const ans = answers[i] || {};
         respuestas.push(`${ans.mas ?? ''}|${ans.menos ?? ''}`);
       }
 
-      // Admin desde localStorage
-      const adminData = localStorage.getItem("adminData");
-      let admin;
-      if (adminData) {
-        admin = JSON.parse(adminData);
-      }
-
-      const correoAdmin = (admin && (admin.correo || admin.email)) ? (admin.correo || admin.email) : "escencialconsult@gmail.com";
+      // Admin desde localStorage de forma segura
+      let correoAdmin = "escencialconsult@gmail.com";
+      try {
+        const adminData = localStorage.getItem("adminData");
+        if (adminData) {
+          const admin = JSON.parse(adminData);
+          correoAdmin = (admin.correo || admin.email) || correoAdmin;
+        }
+      } catch(e) { /* usar valor por defecto */ }
 
       const payload = {
         fecha,
@@ -1105,14 +1143,15 @@
           body: JSON.stringify(payload)
         });
         
-        // Confirmar guardado visualmente
-        document.getElementById('validityBox').innerText = "¡Datos guardados correctamente!";
-        document.getElementById('validityBox').style.color = "#059669";
+        const box = document.getElementById('validityBox');
+        box.textContent = "✓ Datos guardados correctamente";
+        box.className = "validity-badge success";
         
       } catch (error) {
         console.error("Error enviando a Google Sheets:", error);
-        document.getElementById('validityBox').innerText = "Error de conexión";
-        document.getElementById('validityBox').style.color = "#ef4444";
+        const box = document.getElementById('validityBox');
+        box.textContent = "✗ Error al guardar. Contacte al administrador.";
+        box.className = "validity-badge error";
       }
     }
   </script>
