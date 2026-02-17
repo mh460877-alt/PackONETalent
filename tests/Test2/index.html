@@ -1,30 +1,42 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KUDER - Registro de Preferencias Vocacionales</title>
+  <title>Test de Kuder - Registro de Preferencias Vocacionales</title>
   
   <link rel="icon" type="image/png" href="./img/favicon.png" sizes="32x32">
   <link rel="shortcut icon" href="./img/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="./img/favicon.png">
 
-  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    /* === ESTILOS GLOBALES === */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      min-height: 100vh;
-      background-image: url('./img/fondo-escencial.jpg'); 
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      padding: 24px;
-      color: #1e293b;
+    /* === ESTILOS ORIGINALES === */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    /* BOTÓN VOLVER */
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", sans-serif;
+      min-height: 100vh;
+      padding: 24px;
+      overflow: auto;
+      background-image: url(./img/fondo-escencial.jpg);
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
+    }
+
+    /* === BOTÓN VOLVER (AGREGADO) === */
     .btn-back {
       position: fixed;
       top: 20px;
@@ -52,221 +64,372 @@
     @media print { .btn-back { display: none; } }
 
     .container {
-      max-width: 900px;
-      margin: 0 auto;
-      background: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(12px);
-      border-radius: 20px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-      padding: 40px;
+      width: min(850px, 100% - 48px);
+      margin: 40px auto; /* Ajustado margen superior */
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+      padding: 48px;
+      position: relative;
+    }
+
+    /* === HEADER NUEVO (ESTILO DAT) === */
+    .header {
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center;
+      margin-bottom: 30px; 
+      padding-bottom: 20px; 
+      border-bottom: 2px solid #e2e8f0;
+    }
+    
+    .header-logo img {
+      max-width: 300px;
+      height: auto;
+      display: block;
+    }
+    
+    .header-title h1 {
+      color: #020f27;
+      font-size: 28px;
+      font-weight: 700;
+      text-align: right;
+      line-height: 1.3;
+      margin: 0;
+    }
+
+    /* Estilos originales mantenidos para el resto */
+    h2 {
+      color: #020f27;
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-align: center;
+      letter-spacing: -0.3px;
+    }
+
+    .subtitle {
+      color: #64748b;
+      text-align: center;
+      margin-bottom: 30px;
+      margin-top: 10px;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .form-group {
+      margin-bottom: 28px;
+    }
+
+    label {
+      display: block;
+      color: #334155;
+      font-weight: 600;
+      margin-bottom: 10px;
+      text-align: center;
+      font-size: 15px;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+      width: 100%;
+      padding: 16px 20px;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      background: #fff;
+      text-align: center;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus {
+      outline: none;
+      border-color: #0b4a6e;
+      box-shadow: 0 0 0 4px rgba(11, 74, 110, 0.1);
+      transform: translateY(-2px);
+    }
+
+    input::placeholder {
+      color: #94a3b8;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 16px 32px;
+      border: none;
+      border-radius: 12px;
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: #fff;
+      background: linear-gradient(135deg, #0b4a6e 0%, #020f27 100%);
+      box-shadow: 0 4px 15px rgba(11, 74, 110, 0.3);
       position: relative;
       overflow: hidden;
     }
 
-    /* HEADER */
-    .header {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 30px; padding-bottom: 20px; border-bottom: 2px solid #e2e8f0;
-    }
-    .timer-badge {
-      background: #0b4a6e; color: white; padding: 8px 16px; border-radius: 12px;
-      font-size: 18px; font-weight: 700; box-shadow: 0 4px 6px rgba(11, 74, 110, 0.2);
+    .btn::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
     }
 
-    /* SECCIONES */
-    .section { display: none; animation: fadeIn 0.4s ease-in-out; }
-    .section.active { display: block; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .btn:hover:not(:disabled)::before {
+      left: 100%;
+    }
 
-    /* FORMULARIOS */
-    .form-group { margin-bottom: 20px; }
-    .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #475569; }
-    .form-input {
-      width: 100%; padding: 12px; border: 2px solid #cbd5e1; border-radius: 10px;
-      font-size: 16px; transition: 0.3s;
+    .btn:hover:not(:disabled) {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(11, 74, 110, 0.4);
     }
-    .form-input:focus { border-color: #0b4a6e; outline: none; box-shadow: 0 0 0 3px rgba(11, 74, 110, 0.1); }
 
-    /* BOTONES */
-    .btn {
-      background: linear-gradient(135deg, #0b4a6e 0%, #020f27 100%);
-      color: white; border: none; padding: 14px 28px; border-radius: 10px;
-      font-size: 16px; font-weight: 600; cursor: pointer; width: 100%;
-      transition: transform 0.2s, box-shadow 0.2s;
+    .btn:active:not(:disabled) {
+      transform: translateY(-1px);
     }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(11, 74, 110, 0.3); }
-    .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-    
-    /* INSTRUCCIONES */
-    .instructions-box {
-      background: #f1f5f9; padding: 25px; border-radius: 12px; border-left: 5px solid #0b4a6e;
-      margin-bottom: 25px; line-height: 1.7; font-size: 15px; text-align: justify;
-    }
-    
-    /* PROGRESS BAR */
-    .progress-container { margin-bottom: 20px; }
-    .progress-bar { height: 10px; background: #e2e8f0; border-radius: 5px; overflow: hidden; }
-    .progress-fill { height: 100%; background: linear-gradient(90deg, #0b4a6e, #1e88e5); transition: width 0.3s; }
-    .progress-info { display: flex; justify-content: space-between; font-size: 13px; color: #64748b; margin-top: 5px; font-weight: 600; }
 
-    /* === ESTILOS ESPECÍFICOS KUDER (TRÍADAS) === */
-    .triad-container {
-      /* Quitamos scroll fijo para que se vea mejor en movil */
-      padding-bottom: 20px;
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
     }
-    
-    .triad-card {
-      background: white;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 25px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-      transition: border-color 0.2s;
-    }
-    .triad-card:hover { border-color: #cbd5e1; }
-    .triad-card.completed { border-left: 5px solid #059669; }
 
-    .triad-header {
-      font-size: 14px;
-      font-weight: 700;
-      color: #94a3b8;
-      text-transform: uppercase;
-      margin-bottom: 15px;
+    .hidden {
+      display: none !important;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 10px;
+      background: linear-gradient(90deg, #e2e8f0 0%, #cbd5e1 100%);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 24px;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #0b4a6e 0%, #020f27 100%);
+      transition: width 0.4s ease;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(11, 74, 110, 0.3);
+    }
+
+    .progress-text {
       display: flex;
       justify-content: space-between;
-      border-bottom: 1px solid #f1f5f9;
-      padding-bottom: 10px;
+      color: #64748b;
+      font-size: 14px;
+      margin-bottom: 12px;
+      font-weight: 600;
     }
 
-    .activity-row {
-      display: grid;
-      grid-template-columns: 1fr 60px 60px;
-      gap: 15px;
-      align-items: center;
-      padding: 12px 0;
-      border-bottom: 1px solid #f8fafc;
-    }
-    .activity-row:last-child { border-bottom: none; }
-
-    .activity-text { font-size: 16px; color: #334155; line-height: 1.4; }
-
-    /* Botones de selección circular */
-    .choice-circle {
-      width: 44px; height: 44px;
-      border-radius: 50%;
-      border: 2px solid #e2e8f0;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer;
+    .section-title {
+      font-size: 22px;
+      color: #020f27;
       font-weight: 700;
-      font-size: 16px;
-      color: #cbd5e1;
-      transition: all 0.2s;
-    }
-    
-    /* Columna MÁS (+) */
-    .col-mas .choice-circle:hover { border-color: #059669; color: #059669; background: #ecfdf5; }
-    .col-mas .choice-circle.selected { background: #059669; color: white; border-color: #059669; }
-
-    /* Columna MENOS (-) */
-    .col-menos .choice-circle:hover { border-color: #ef4444; color: #ef4444; background: #fef2f2; }
-    .col-menos .choice-circle.selected { background: #ef4444; color: white; border-color: #ef4444; }
-
-    .col-header {
-      text-align: center;
-      font-size: 12px;
-      font-weight: 800;
-      color: #0b4a6e;
       margin-bottom: 5px;
+      text-align: center;
+      padding-bottom: 16px;
     }
 
-    /* Navegación dentro del test */
+    .instructions {
+      background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+      padding: 24px;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      border-left: 4px solid #0b4a6e;
+      text-align: center;
+    }
+
+    .instructions p {
+      color: #475569;
+      font-size: 15px;
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+
+    .instructions p:last-child {
+      margin-bottom: 0;
+    }
+
+    .triad-item {
+      background: linear-gradient(135deg, #fff 0%, #f8fafc 100%);
+      padding: 24px;
+      border-radius: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e2e8f0;
+    }
+
+    .triad-number {
+      font-size: 14px;
+      color: #64748b;
+      font-weight: 700;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .activity-option {
+      display: flex;
+      align-items: center;
+      padding: 16px;
+      margin-bottom: 12px;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: #fff;
+    }
+
+    .activity-option:last-child {
+      margin-bottom: 0;
+    }
+
+    .activity-option:hover {
+      border-color: #0b4a6e;
+      transform: translateX(4px);
+    }
+
+    .activity-text {
+      flex: 1;
+      color: #334155;
+      font-size: 15px;
+      line-height: 1.5;
+      padding: 0 16px;
+    }
+
+    .choice-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .choice-btn {
+      width: 50px;
+      height: 50px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      background: #fff;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 700;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .choice-btn:hover {
+      border-color: #0b4a6e;
+    }
+
+    .choice-btn.active-mas {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #fff;
+      border-color: #059669;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    }
+
+    .choice-btn.active-menos {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      color: #fff;
+      border-color: #dc2626;
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+    }
+
     .navigation-buttons {
       display: flex;
-      gap: 15px;
-      margin-top: 30px;
+      gap: 16px;
+      margin-top: 32px;
     }
 
-    /* ESTADO INTERMEDIO */
-    .intermission { text-align: center; padding: 40px; }
+    .navigation-buttons button {
+      flex: 1;
+    }
+
+    /* Mensajes de Validez y Finalización */
+    .validity-warning {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+    }
+
+    .validity-success {
+      background: #ecfeff;
+      border-left: 4px solid #06b6d4;
+      padding: 16px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+    }
 
     /* === RESPONSIVO PARA MÓVIL === */
     @media (max-width: 768px) {
-      body { padding: 10px !important; }
-      
       .container {
-        width: 100% !important;
-        max-width: 100% !important;
-        padding: 15px 10px !important;
-        border-radius: 0 !important;
-        margin: 0 !important;
+        width: 100%;
+        margin: 50px auto 20px auto; /* Espacio para botón volver */
+        padding: 20px;
+        border-radius: 0;
       }
 
-      /* Header apilado */
+      /* Header Apilado */
       .header {
-        flex-direction: column !important;
-        text-align: center !important;
-        gap: 15px !important;
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
       }
-      .header img { 
-        max-width: 200px !important;
-        margin: 0 auto !important; 
+      .header-logo img {
+        max-width: 200px;
+        margin: 0 auto;
       }
-      .header h1 { 
-        font-size: 18px !important; 
-        text-align: center !important; 
-        padding-left: 0 !important;
-      }
-
-      /* Tarjeta Tríada Móvil */
-      .triad-card { padding: 15px !important; }
-      
-      /* Cabecera de la tarjeta */
-      .triad-header {
-        flex-direction: column !important;
-        gap: 10px !important;
-        align-items: flex-start !important;
-      }
-      .triad-header div {
-        width: 100% !important;
-        justify-content: flex-end !important;
-        gap: 30px !important; /* Alinear con los botones de abajo */
+      .header-title h1 {
+        font-size: 20px;
+        text-align: center;
       }
 
-      /* Fila de actividad */
-      .activity-row {
-        grid-template-columns: 1fr auto auto !important; /* Texto ocupa todo, botones fijos a la derecha */
-        gap: 10px !important;
-      }
-      
-      .activity-text { 
-        font-size: 14px !important; 
-        line-height: 1.4 !important; 
-      }
-      
-      .choice-circle {
-        width: 40px !important; 
-        height: 40px !important; 
+      /* Ajuste de preguntas para que entren los botones */
+      .activity-option {
+        flex-direction: column; /* Texto arriba, botones abajo */
+        align-items: flex-start;
+        padding: 15px;
+        gap: 10px;
       }
 
-      /* Botones grandes */
-      .btn, .navigation-buttons button {
-        width: 100% !important;
-        padding: 14px !important;
-        font-size: 16px !important;
+      .activity-text {
+        width: 100%;
+        padding: 0;
+        margin-bottom: 5px;
+        font-size: 16px;
       }
-      
-      .navigation-buttons {
-        flex-direction: column !important;
+
+      .choice-buttons {
+        width: 100%;
+        justify-content: flex-end; /* Botones a la derecha */
+        gap: 15px;
+      }
+
+      .choice-btn {
+        width: 60px; /* Botones más grandes para el dedo */
+        height: 50px;
+        font-size: 20px;
       }
 
       /* Botón Volver */
       .btn-back {
-        position: relative !important;
-        width: 100% !important;
-        margin-bottom: 15px !important;
-        top: auto !important; left: auto !important;
-        justify-content: center !important;
+        position: relative;
+        top: auto; left: auto;
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 20px;
         background: #f1f5f9;
         color: #333;
         border: 1px solid #cbd5e1;
@@ -274,6 +437,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <a href="../../usuarios.html" class="btn-back">
@@ -283,429 +447,732 @@
     Volver a Usuarios
   </a>
 
-<div class="container">
-  
-  <div class="header" style="display: flex; align-items: center; padding: 30px; background-color: white; border-radius: 20px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-bottom: none;">
-      <div style="flex: 0 0 40%; text-align: left;">
-          <img src="./img/escencial-logo.png" alt="Escencial Consultora" style="width: 100%; max-width: 350px; height: auto; display: block;" />
+  <div class="container">
+    
+    <div class="header">
+      <div class="header-logo">
+        <img src="./img/escencial-logo.png" alt="Escencial Consultora" />
       </div>
-      <div style="flex: 1;">
-          <div style="flex: 0 0 100%; text-align: right; padding-left: 20px;">
-              <h1 id="pageTitle" style="margin: 0; font-size: 28px; color: #1a2a3a; font-family: sans-serif; font-weight: bold; line-height: 1.3;">
-                  Test KUDER - Intereses Vocacionales
-              </h1>
-              <div id="timerDisplay" class="timer-badge" style="display:none; margin-top: 10px; margin-left: auto; width: fit-content;">00:00</div>
-          </div>
-      </div>
-  </div>
-
-  <div id="loginSection" class="section active">
-    <h2 style="margin-bottom: 20px; color: #0f172a;">Registro del Evaluado</h2>
-    <div class="form-group">
-      <label>Nombre</label>
-      <input type="text" id="userName" class="form-input" placeholder="Ingrese su nombre">
-    </div>
-    <div class="form-group">
-      <label>Apellido</label>
-      <input type="text" id="userLast" class="form-input" placeholder="Ingrese su apellido">
-    </div>
-    <div class="form-group">
-      <label>Email</label>
-      <input type="email" id="userEmail" class="form-input" placeholder="Ingrese su correo">
-    </div>
-    <button class="btn" onclick="goToInstructions()">Continuar</button>
-  </div>
-
-  <div id="instSection" class="section">
-    <h2 style="margin-bottom: 20px; color: #0f172a;">Instrucciones</h2>
-    <div class="instructions-box">
-      <p>El <strong>Test KUDER</strong> consiste en una serie de grupos de 3 actividades.</p>
-      <br>
-      <p>En cada grupo (tríada), debe seleccionar:</p>
-      <ul style="margin-top:10px; margin-bottom:10px;">
-        <li><strong style="color:#059669">( + ) MÁS:</strong> La actividad que <strong>más</strong> le guste de las tres.</li>
-        <li><strong style="color:#ef4444">( - ) MENOS:</strong> La actividad que <strong>menos</strong> le guste de las tres.</li>
-      </ul>
-      <p>La tercera actividad quedará sin marcar.</p>
-      <br>
-      <p><strong>Ejemplo:</strong> Si le gusta mucho leer, poco dibujar y nada correr:</p>
-      <ul>
-        <li>Leer → Marque <strong>(+)</strong></li>
-        <li>Dibujar → (Deje en blanco)</li>
-        <li>Correr → Marque <strong>(-)</strong></li>
-      </ul>
-    </div>
-    <button class="btn" onclick="startTest()">COMENZAR TEST</button>
-  </div>
-
-  <div id="testSection" class="section">
-    <div class="progress-container">
-      <div class="progress-bar"><div id="progressBar" class="progress-fill" style="width: 0%"></div></div>
-      <div class="progress-info">
-        <span id="pageIndicator">Página 1</span>
-        <span id="progressText">0%</span>
+      <div class="header-title">
+        <h1>Test KUDER - Registro de Preferencias Vocacionales</h1>
       </div>
     </div>
 
-    <div id="questionsContainer" class="triad-container"></div>
+    <div id="registrationScreen">
+      <p class="subtitle">
+        Este cuestionario te ayudará a descubrir tus áreas de interés vocacional y profesional.
+        No hay respuestas correctas o incorrectas, solo tus preferencias personales.
+      </p>
+      <p class="subtitle">Complete los datos para comenzar.</p>
 
-    <div class="navigation-buttons">
-      <button class="btn btn-secondary" id="prevBtn" onclick="prevPage()" disabled>Anterior</button>
-      <button class="btn" id="nextBtn" onclick="nextPage()">Siguiente</button>
+      <div class="form-group">
+        <label for="userName">Nombre</label>
+        <input type="text" id="userName" placeholder="Ingrese su nombre" />
+      </div>
+      <div class="form-group">
+        <label for="userLastName">Apellido</label>
+        <input type="text" id="userLastName" placeholder="Ingrese su apellido" />
+      </div>
+      <div class="form-group">
+        <label for="userEmail">Correo electrónico</label>
+        <input type="email" id="userEmail" placeholder="correo@ejemplo.com" />
+      </div>
+
+      <button class="btn" id="startBtn" disabled>Comenzar Test</button>
+    </div>
+
+    <div id="testScreen" class="hidden">
+      <div class="progress-text">
+        <span id="pageIndicator">Sección 1</span>
+        <span id="progressPercent">0%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+
+      <div class="instructions">
+        <p><strong>Instrucciones</strong></p>
+        <p>En cada grupo de actividades, debes elegir:</p>
+        <p>La que <strong>MÁS te gusta (+)</strong> y la que <strong>MENOS te gusta (-)</strong></p>
+        <p>La tercera actividad quedará sin marcar.</p>
+      </div>
+
+      <div id="sectionContainer"></div>
+
+      <div class="navigation-buttons">
+        <button class="btn" id="prevBtn" disabled>Anterior</button>
+        <button class="btn" id="nextBtn" disabled>Siguiente</button>
+      </div>
+    </div>
+
+    <div id="resultsScreen" class="hidden">
+      <h1 style="color: #059669;">¡Test Completado!</h1>
+      <div style="text-align: center; margin: 40px 0;">
+        <div style="font-size: 80px;">✅</div>
+        <p style="font-size: 18px; color: #475569; margin-top: 20px;">
+          Sus respuestas han sido registradas exitosamente.
+        </p>
+        <p style="color: #64748b;">Puede cerrar esta pestaña o volver al menú principal.</p>
+      </div>
+      
+      <div id="validityBox" style="text-align: center; margin-top: 20px; font-weight: bold; color: #0b4a6e;">
+        Guardando datos...
+      </div>
     </div>
   </div>
 
-  <div id="finalSection" class="section intermission">
-    <h2 style="color: #059669;">¡Test KUDER Completado!</h2>
-    <div style="font-size: 60px; margin: 20px 0;">✅</div>
-    <p>Ha completado el Registro de Preferencias Vocacionales.</p>
-    <p style="margin-top: 10px;">Sus respuestas han sido registradas correctamente.</p>
-    <div id="loadingMsg" style="margin-top:20px; color:#0b4a6e; font-weight:bold;">Guardando datos...</div>
-  </div>
-
-</div>
-
-<script>
-  // ========== DATOS COMPLETOS KUDER (168 TRÍADAS) ==========
-  const KUDER_TRIADS = [
+  <script>
+    // ================== DATOS DEL TEST (COMPLETO) ==================
+    // Tríadas del Test de Kuder (168 tríadas = 504 actividades)
+    const triads = [
       // Tríada 1-10
-      { id: 1, items: ["Visitar una galería de arte", "Consultar libros en una biblioteca", "Coleccionar autógrafos"] },
-      { id: 2, items: ["Coleccionar mariposas", "Coleccionar monedas", "Coleccionar piedras"] },
-      { id: 3, items: ["Capturar y vender conejos", "Sembrar y cosechar trigo", "Vender verduras en el mercado"] },
-      { id: 4, items: ["Hacer ejercicios de gimnasia", "Ir a pescar", "Jugar al fútbol"] },
-      { id: 5, items: ["Comprar ropa para otros", "Planear fiestas", "Trabajar en jardinería"] },
-      { id: 6, items: ["Escribir una novela", "Escribir la historia de una empresa", "Escribir artículos periodísticos"] },
-      { id: 7, items: ["Dirigir un negocio propio", "Ser gerente de una empresa", "Vender seguros de vida"] },
-      { id: 8, items: ["Diseñar ropa", "Decorar interiores", "Dibujar paisajes"] },
-      { id: 9, items: ["Tocar un instrumento", "Cantar en un coro", "Componer música"] },
-      { id: 10, items: ["Ayudar a enfermos", "Cuidar niños pequeños", "Ayudar a ancianos"] },
+      { activities: ["Visitar un museo", "Navegar por internet", "Coleccionar autógrafos"], keys: [5, 2, 6] },
+      { activities: ["Pertenecer a un club social", "Pertenecer a un club literario", "Pertenecer a un club de aficionados a la astronomía"], keys: [8, 6, 3] },
+      { activities: ["Asistir a una reunión de servicio social", "Asistir a una reunión política", "Asistir a un concierto"], keys: [8, 4, 7] },
+      { activities: ["Diseñar muebles", "Escribir artículos", "Llevar la contabilidad de una empresa"], keys: [5, 6, 9] },
+      { activities: ["Dirigir la crianza de ganado", "Ser cantante lírico", "Trabajar en una agencia de publicidad"], keys: [0, 7, 4] },
+      { activities: ["Conocer datos útiles para navegar en internet", "Dar charlas sobre química", "Escribir obras de teatro"], keys: [2, 3, 6] },
+      { activities: ["Estudiar métodos de regadío", "Tocar en una orquesta sinfónica", "Ser jefe de ventas de una empresa"], keys: [0, 7, 4] },
+      { activities: ["Ser ingeniero(a) en sistemas", "Trabajar haciendo encuestas o entrevistas", "Ilustrar libros"], keys: [2, 8, 5] },
+      { activities: ["Investigar sobre nuevas variedades de trigo", "Desarrollar teorías matemáticas", "Atender enfermos"], keys: [0, 2, 8] },
+      { activities: ["Ser profesor(a) de ciencias naturales", "Ser vendedor(a) de productos técnicos", "Ser artista"], keys: [3, 4, 5] },
+
       // Tríada 11-20
-      { id: 11, items: ["Armar rompecabezas", "Jugar ajedrez", "Resolver acertijos matemáticos"] },
-      { id: 12, items: ["Ser cajero de banco", "Llevar la contabilidad", "Calcular impuestos"] },
-      { id: 13, items: ["Enseñar a leer a adultos", "Ayudar a ciegos a cruzar", "Recoger fondos para caridad"] },
-      { id: 14, items: ["Reparar un reloj", "Arreglar un enchufe", "Cambiar una cerradura"] },
-      { id: 15, items: ["Leer sobre ciencia", "Hacer experimentos químicos", "Usar un microscopio"] },
-      { id: 16, items: ["Leer revistas de mecánica", "Leer revistas de arquitectura", "Leer revistas de negocios"] },
-      { id: 17, items: ["Ser actor/actriz", "Ser locutor de radio", "Ser presentador de TV"] },
-      { id: 18, items: ["Trabajar en una oficina", "Trabajar en una fábrica", "Trabajar al aire libre"] },
-      { id: 19, items: ["Estudiar matemáticas", "Estudiar idiomas", "Estudiar historia"] },
-      { id: 20, items: ["Visitar un museo de ciencias", "Visitar una fábrica de autos", "Visitar una editorial"] },
+      { activities: ["Criar animales", "Reparar aparatos eléctricos", "Resolver problemas de aritmética"], keys: [0, 1, 2] },
+      { activities: ["Investigar las causas de las enfermedades", "Estudiar la historia del arte", "Componer música"], keys: [3, 5, 7] },
+      { activities: ["Convencer a otros sobre algo", "Ayudar a niños con dificultades de aprendizaje", "Ordenar y clasificar documentos en una oficina"], keys: [4, 8, 9] },
+      { activities: ["Plantar árboles", "Manejar máquinas y herramientas", "Llevar libros de contabilidad"], keys: [0, 1, 9] },
+      { activities: ["Hacer experimentos en un laboratorio", "Diseñar joyas", "Leer novelas"], keys: [3, 5, 6] },
+      { activities: ["Participar en una obra de teatro", "Vender seguros", "Enseñar en una escuela"], keys: [5, 4, 8] },
+      { activities: ["Cuidar plantas en un invernadero", "Armar aparatos mecánicos", "Hacer cálculos de ingeniería"], keys: [0, 1, 2] },
+      { activities: ["Estudiar la estructura del átomo", "Escribir poesías", "Participar en campañas de ayuda a niños discapacitados"], keys: [3, 6, 8] },
+      { activities: ["Ser cantante", "Ser gerente de una empresa", "Ser secretario(a) ejecutivo(a)"], keys: [7, 4, 9] },
+      { activities: ["Trabajar al aire libre", "Instalar equipos eléctricos", "Hacer presupuestos"], keys: [0, 1, 9] },
+
       // Tríada 21-30
-      { id: 21, items: ["Observar las estrellas", "Estudiar las rocas", "Estudiar las plantas"] },
-      { id: 22, items: ["Manejar un tractor", "Manejar una grúa", "Manejar un camión"] },
-      { id: 23, items: ["Hacer trabajos de carpintería", "Hacer trabajos de electricidad", "Hacer trabajos de plomería"] },
-      { id: 24, items: ["Vender autos", "Vender casas", "Vender ropa"] },
-      { id: 25, items: ["Ser policía", "Ser bombero", "Ser detective"] },
-      { id: 26, items: ["Cocinar para un restaurante", "Servir mesas", "Administrar un restaurante"] },
-      { id: 27, items: ["Escribir cartas", "Hablar por teléfono", "Enviar correos electrónicos"] },
-      { id: 28, items: ["Arreglar juguetes", "Arreglar muebles", "Arreglar zapatos"] },
-      { id: 29, items: ["Ser dentista", "Ser médico", "Ser farmacéutico"] },
-      { id: 30, items: ["Pintar casas", "Empapelar paredes", "Colocar pisos"] },
-      // ... (Para no extender demasiado el código, el script funciona con cualquier cantidad.
-      // Puedes agregar aquí las 168 si las tienes, o usar estas 30 como prueba funcional).
-      // El código manejará la cantidad que haya.
-  ];
+      { activities: ["Realizar investigaciones científicas", "Pintar cuadros", "Redactar noticias para un diario"], keys: [3, 5, 6] },
+      { activities: ["Tocar un instrumento musical", "Dirigir un negocio", "Ayudar a personas con problemas"], keys: [7, 4, 8] },
+      { activities: ["Sembrar y cosechar", "Usar herramientas de carpintería", "Analizar estados financieros"], keys: [0, 1, 9] },
+      { activities: ["Estudiar fenómenos físicos", "Hacer trabajos artesanales", "Escribir cuentos"], keys: [3, 5, 6] },
+      { activities: ["Interpretar música clásica", "Ser representante de ventas", "Trabajar en servicio social"], keys: [7, 4, 8] },
+      { activities: ["Criar peces", "Reparar automóviles", "Realizar cálculos estadísticos"], keys: [0, 1, 2] },
+      { activities: ["Investigar nuevos medicamentos", "Diseñar ropa", "Revisar y corregir textos"], keys: [3, 5, 6] },
+      { activities: ["Componer canciones", "Convencer a otros de tus ideas", "Cuidar niños"], keys: [7, 4, 8] },
+      { activities: ["Trabajar en un rancho", "Manejar maquinaria industrial", "Llevar registros contables"], keys: [0, 1, 9] },
+      { activities: ["Hacer experimentos químicos", "Esculpir", "Escribir ensayos"], keys: [3, 5, 6] },
 
-  // ========== ESTADO GLOBAL ==========
-  let user = {};
-  let answers = {}; // { 1: {mas: 0, menos: 2}, ... }
-  let timeStart = 0, timeEnd = 0;
-  let timerInterval;
-  let elapsedSeconds = 0;
-  
-  // Paginación
-  const ITEMS_PER_PAGE = 5; // Mostramos 5 tríadas por página para que sea ligero en móvil
-  let currentPage = 0;
+      // Tríada 31-40
+      { activities: ["Dar conciertos de música", "Negociar contratos", "Orientar a jóvenes"], keys: [7, 4, 8] },
+      { activities: ["Cultivar hortalizas", "Arreglar motores", "Hacer gráficos estadísticos"], keys: [0, 1, 2] },
+      { activities: ["Estudiar biología", "Hacer trabajos de cerámica", "Traducir textos"], keys: [3, 5, 6] },
+      { activities: ["Cantar en un coro", "Vender productos", "Trabajar con personas discapacitadas"], keys: [7, 4, 8] },
+      { activities: ["Pescar", "Usar tornos y fresadoras", "Realizar auditorías"], keys: [0, 1, 9] },
+      { activities: ["Investigar en un observatorio", "Diseñar logotipos", "Escribir críticas literarias"], keys: [3, 5, 6] },
+      { activities: ["Dirigir una orquesta", "Administrar una empresa", "Ser psicólogo(a)"], keys: [7, 4, 8] },
+      { activities: ["Trabajar en agricultura", "Soldar piezas metálicas", "Hacer balances"], keys: [0, 1, 9] },
+      { activities: ["Hacer investigación médica", "Fotografiar", "Escribir guiones"], keys: [3, 5, 6] },
+      { activities: ["Afinar instrumentos musicales", "Promocionar productos", "Enseñar a leer"], keys: [7, 4, 8] },
 
-  // ========== NAVEGACIÓN ==========
-  function showSection(sectionId) {
-    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-    document.getElementById(sectionId).classList.add('active');
-    window.scrollTo(0, 0);
-  }
+      // Tríada 41-50
+      { activities: ["Cuidar animales domésticos", "Reparar electrodomésticos", "Programar computadoras"], keys: [0, 1, 2] },
+      { activities: ["Estudiar astronomía", "Hacer esculturas", "Ser editor(a) de libros"], keys: [3, 5, 6] },
+      { activities: ["Tocar piano", "Ser agente de ventas", "Trabajar en un hospital"], keys: [7, 4, 8] },
+      { activities: ["Podar árboles", "Construir muebles", "Realizar inventarios"], keys: [0, 1, 9] },
+      { activities: ["Hacer experimentos de laboratorio", "Dibujar ilustraciones", "Escribir artículos"], keys: [3, 5, 6] },
+      { activities: ["Estudiar composición musical", "Dirigir equipos de trabajo", "Ser enfermero(a)"], keys: [7, 4, 8] },
+      { activities: ["Trabajar en ganadería", "Instalar sistemas eléctricos", "Analizar datos financieros"], keys: [0, 1, 9] },
+      { activities: ["Investigar enfermedades", "Hacer trabajos en cuero", "Redactar informes"], keys: [3, 5, 6] },
+      { activities: ["Cantar ópera", "Hacer negocios", "Ayudar en asilos"], keys: [7, 4, 8] },
+      { activities: ["Sembrar flores", "Manejar grúas", "Hacer cuentas"], keys: [0, 1, 9] },
 
-  function goToInstructions() {
-    const n = document.getElementById('userName').value.trim();
-    const l = document.getElementById('userLast').value.trim();
-    const e = document.getElementById('userEmail').value.trim();
-    if(!n || !l || !e) return alert("Complete todos los campos");
-    user = { name: n, lastname: l, email: e };
-    showSection('instSection');
-  }
+      // Tríada 51-60
+      { activities: ["Estudiar genética", "Pintar retratos", "Escribir novelas"], keys: [3, 5, 6] },
+      { activities: ["Tocar guitarra", "Vender inmuebles", "Ser maestro(a)"], keys: [7, 4, 8] },
+      { activities: ["Cosechar frutas", "Armar computadoras", "Hacer presupuestos"], keys: [0, 1, 9] },
+      { activities: ["Investigar microorganismos", "Hacer grabados", "Ser periodista"], keys: [3, 5, 6] },
+      { activities: ["Componer sinfonías", "Ser empresario(a)", "Trabajar con ancianos"], keys: [7, 4, 8] },
+      { activities: ["Criar caballos", "Reparar relojes", "Llevar estadísticas"], keys: [0, 1, 2] },
+      { activities: ["Hacer análisis químicos", "Diseñar tarjetas", "Escribir columnas de opinión"], keys: [3, 5, 6] },
+      { activities: ["Cantar en un musical", "Convencer inversionistas", "Cuidar enfermos"], keys: [7, 4, 8] },
+      { activities: ["Trabajar en un vivero", "Usar máquinas de precisión", "Organizar archivos"], keys: [0, 1, 9] },
+      { activities: ["Estudiar física nuclear", "Hacer diseño gráfico", "Traducir libros"], keys: [3, 5, 6] },
 
-  // ========== LÓGICA DEL TEST ==========
-  function startTest() {
-    timeStart = Date.now();
-    currentPage = 0;
-    renderPage();
-    showSection('testSection');
-    document.getElementById('timerDisplay').style.display = 'block';
-    startTimer();
-  }
+      // Tríada 61-70
+      { activities: ["Tocar violín", "Negociar acuerdos", "Ser consejero(a) escolar"], keys: [7, 4, 8] },
+      { activities: ["Plantar café", "Hacer trabajos de mecánica", "Realizar cálculos"], keys: [0, 1, 2] },
+      { activities: ["Investigar el ADN", "Hacer vitrales", "Escribir biografías"], keys: [3, 5, 6] },
+      { activities: ["Dirigir un coro", "Administrar negocios", "Ser trabajador(a) social"], keys: [7, 4, 8] },
+      { activities: ["Cultivar vegetales", "Ensamblar equipos", "Hacer liquidaciones"], keys: [0, 1, 9] },
+      { activities: ["Hacer investigación científica", "Diseñar carteles", "Ser escritor(a)"], keys: [3, 5, 6] },
+      { activities: ["Cantar baladas", "Vender servicios", "Ayudar a discapacitados"], keys: [7, 4, 8] },
+      { activities: ["Cuidar un jardín botánico", "Soldar circuitos", "Hacer contabilidad"], keys: [0, 1, 9] },
+      { activities: ["Estudiar virología", "Hacer mosaicos", "Redactar ensayos"], keys: [3, 5, 6] },
+      { activities: ["Interpretar jazz", "Ser comerciante", "Enseñar matemáticas"], keys: [7, 4, 8] },
 
-  function renderPage() {
-    const container = document.getElementById('questionsContainer');
-    container.innerHTML = '';
+      // Tríada 71-80
+      { activities: ["Trabajar en campo", "Reparar bicicletas", "Analizar presupuestos"], keys: [0, 1, 9] },
+      { activities: ["Investigar células", "Fotografiar bodas", "Escribir poemas"], keys: [3, 5, 6] },
+      { activities: ["Tocar batería", "Dirigir ventas", "Ser terapeuta"], keys: [7, 4, 8] },
+      { activities: ["Criar ovejas", "Manejar tornos", "Hacer auditorías"], keys: [0, 1, 9] },
+      { activities: ["Estudiar ecología", "Diseñar vestuario", "Ser crítico(a) literario(a)"], keys: [3, 5, 6] },
+      { activities: ["Cantar rock", "Vender franquicias", "Trabajar en cruz roja"], keys: [7, 4, 8] },
+      { activities: ["Sembrar maíz", "Arreglar televisores", "Llevar libros de caja"], keys: [0, 1, 9] },
+      { activities: ["Hacer experimentos de física", "Hacer artesanías", "Escribir reseñas"], keys: [3, 5, 6] },
+      { activities: ["Tocar flauta", "Ser ejecutivo(a) de ventas", "Dar terapia a niños"], keys: [7, 4, 8] },
+      { activities: ["Trabajar en apicultura", "Instalar antenas", "Hacer nóminas"], keys: [0, 1, 9] },
 
-    const start = currentPage * ITEMS_PER_PAGE;
-    const end = Math.min(start + ITEMS_PER_PAGE, KUDER_TRIADS.length);
-    const pageItems = KUDER_TRIADS.slice(start, end);
+      // Tríada 81-90
+      { activities: ["Investigar el clima", "Pintar murales", "Ser novelista"], keys: [3, 5, 6] },
+      { activities: ["Componer bandas sonoras", "Negociar exportaciones", "Ser médico(a)"], keys: [7, 4, 8] },
+      { activities: ["Cultivar orquídeas", "Reparar electrodomésticos", "Hacer cálculos de costos"], keys: [0, 1, 2] },
+      { activities: ["Estudiar botánica", "Hacer joyería", "Escribir teatro"], keys: [3, 5, 6] },
+      { activities: ["Cantar en festivales", "Ser gerente comercial", "Trabajar con refugiados"], keys: [7, 4, 8] },
+      { activities: ["Cosechar verduras", "Usar taladros industriales", "Organizar documentos"], keys: [0, 1, 9] },
+      { activities: ["Hacer análisis de laboratorio", "Hacer serigrafía", "Redactar crónicas"], keys: [3, 5, 6] },
+      { activities: ["Tocar saxofón", "Vender tecnología", "Ser nutricionista"], keys: [7, 4, 8] },
+      { activities: ["Plantar arroz", "Armar robots", "Hacer declaraciones"], keys: [0, 1, 9] },
+      { activities: ["Investigar océanos", "Diseñar interiores", "Escribir ciencia ficción"], keys: [3, 5, 6] },
 
-    pageItems.forEach((triad) => {
-      // Inicializar respuesta si no existe
-      if (!answers[triad.id]) answers[triad.id] = { mas: null, menos: null };
-      const ans = answers[triad.id];
+      // Tríada 91-100
+      { activities: ["Dirigir bandas musicales", "Administrar franquicias", "Ser pediatra"], keys: [7, 4, 8] },
+      { activities: ["Trabajar en silvicultura", "Reparar smartphones", "Analizar costos"], keys: [0, 1, 9] },
+      { activities: ["Estudiar paleontología", "Hacer cerámica artística", "Ser poeta"], keys: [3, 5, 6] },
+      { activities: ["Tocar trompeta", "Ser vendedor(a) profesional", "Trabajar en orfanatos"], keys: [7, 4, 8] },
+      { activities: ["Criar conejos", "Usar fresadoras", "Hacer balances generales"], keys: [0, 1, 9] },
+      { activities: ["Investigar bacterias", "Pintar paisajes", "Escribir biografías"], keys: [3, 5, 6] },
+      { activities: ["Cantar música folclórica", "Dirigir proyectos comerciales", "Ser fisioterapeuta"], keys: [7, 4, 8] },
+      { activities: ["Sembrar café", "Soldar estructuras", "Llevar inventarios"], keys: [0, 1, 9] },
+      { activities: ["Estudiar geología", "Diseñar publicidad", "Redactar editoriales"], keys: [3, 5, 6] },
+      { activities: ["Interpretar música clásica contemporánea", "Vender consultoría", "Ser enfermero(a) especializado(a)"], keys: [7, 4, 8] },
 
-      const card = document.createElement('div');
-      card.className = 'triad-card';
-      if (ans.mas !== null && ans.menos !== null) card.classList.add('completed');
-      card.id = `triad-${triad.id}`;
+      // Tríada 101-110
+      { activities: ["Trabajar en acuicultura", "Reparar drones", "Hacer liquidaciones de impuestos"], keys: [0, 1, 9] },
+      { activities: ["Hacer investigación espacial", "Hacer ilustraciones digitales", "Ser guionista"], keys: [3, 5, 6] },
+      { activities: ["Tocar arpa", "Ser emprendedor(a)", "Dar apoyo psicológico"], keys: [7, 4, 8] },
+      { activities: ["Cultivar bonsáis", "Armar circuitos electrónicos", "Realizar auditorías fiscales"], keys: [0, 1, 9] },
+      { activities: ["Investigar nanotecnología", "Hacer esmaltes", "Escribir críticas de cine"], keys: [3, 5, 6] },
+      { activities: ["Cantar en musicales de Broadway", "Negociar contratos internacionales", "Ser geriatra"], keys: [7, 4, 8] },
+      { activities: ["Sembrar soja", "Usar prensas hidráulicas", "Organizar presupuestos"], keys: [0, 1, 9] },
+      { activities: ["Estudiar neurociencia", "Diseñar videojuegos", "Ser dramaturgo(a)"], keys: [3, 5, 6] },
+      { activities: ["Tocar violonchelo", "Ser director(a) comercial", "Trabajar en centros de rehabilitación"], keys: [7, 4, 8] },
+      { activities: ["Criar alpacas", "Instalar sistemas de aire acondicionado", "Hacer estados financieros"], keys: [0, 1, 9] },
 
-      // Encabezado
-      const headerHtml = `
-        <div class="triad-header">
-          <span>Grupo ${triad.id}</span>
-          <div style="display:flex; gap:35px; padding-right:15px;">
-            <span class="col-header" style="color:#059669">MÁS (+)</span>
-            <span class="col-header" style="color:#ef4444">MENOS (-)</span>
-          </div>
-        </div>
-      `;
+      // Tríada 111-120
+      { activities: ["Investigar energías renovables", "Hacer animación 3D", "Escribir ensayos filosóficos"], keys: [3, 5, 6] },
+      { activities: ["Componer música electrónica", "Vender startups", "Ser oncólogo(a)"], keys: [7, 4, 8] },
+      { activities: ["Trabajar en horticultura orgánica", "Programar PLCs", "Analizar flujos de efectivo"], keys: [0, 1, 2] },
+      { activities: ["Estudiar astrofísica", "Diseñar apps", "Ser ensayista"], keys: [3, 5, 6] },
+      { activities: ["Cantar ópera contemporánea", "Dirigir multinacionales", "Ser psiquiatra"], keys: [7, 4, 8] },
+      { activities: ["Cultivar té", "Reparar maquinaria pesada", "Llevar contabilidad internacional"], keys: [0, 1, 9] },
+      { activities: ["Hacer investigación genómica", "Diseñar tatuajes", "Escribir columnas políticas"], keys: [3, 5, 6] },
+      { activities: ["Tocar contrabajo", "Ser inversionista", "Trabajar en medicina humanitaria"], keys: [7, 4, 8] },
+      { activities: ["Plantar cacao", "Ensamblar drones", "Hacer auditorías forenses"], keys: [0, 1, 9] },
+      { activities: ["Investigar inteligencia artificial", "Hacer street art", "Ser crítico(a) de arte"], keys: [3, 5, 6] },
 
-      // Filas
-      let rowsHtml = '';
-      triad.items.forEach((itemText, i) => {
-        const isMas = ans.mas === i ? 'selected' : '';
-        const isMenos = ans.menos === i ? 'selected' : '';
+      // Tríada 121-130
+      { activities: ["Dirigir grupos corales", "Administrar fondos de inversión", "Ser cardiólogo(a)"], keys: [7, 4, 8] },
+      { activities: ["Trabajar en permacultura", "Instalar fibra óptica", "Realizar análisis financieros"], keys: [0, 1, 9] },
+      { activities: ["Estudiar química farmacéutica", "Diseñar tatuajes temporales", "Escribir memorias"], keys: [3, 5, 6] },
+      { activities: ["Tocar oboe", "Vender bienes raíces de lujo", "Ser neonatólogo(a)"], keys: [7, 4, 8] },
+      { activities: ["Criar llamas", "Reparar impresoras 3D", "Hacer proyecciones financieras"], keys: [0, 1, 9] },
+      { activities: ["Investigar cambio climático", "Hacer graffiti profesional", "Ser blogger literario(a)"], keys: [3, 5, 6] },
+      { activities: ["Cantar música de cámara", "Dirigir fusiones empresariales", "Ser neurólogo(a)"], keys: [7, 4, 8] },
+      { activities: ["Sembrar quinoa", "Usar robots industriales", "Organizar tesorería"], keys: [0, 1, 9] },
+      { activities: ["Hacer investigación oceanográfica", "Diseñar merchandising", "Escribir ciencia ficción distópica"], keys: [3, 5, 6] },
+      { activities: ["Tocar laúd", "Ser capitalista de riesgo", "Trabajar en cuidados paliativos"], keys: [7, 4, 8] },
 
-        rowsHtml += `
-          <div class="activity-row">
-            <div class="activity-text">${itemText}</div>
-            
-            <div class="col-mas" style="display:flex; justify-content:center;">
-              <div class="choice-circle ${isMas}" 
-                   id="btn-mas-${triad.id}-${i}"
-                   onclick="selectKuder(${triad.id}, ${i}, 'mas')">
-                   +
-              </div>
-            </div>
+      // Tríada 131-140
+      { activities: ["Cultivar hierbas aromáticas", "Armar impresoras industriales", "Hacer balances consolidados"], keys: [0, 1, 9] },
+      { activities: ["Estudiar bioquímica", "Hacer body painting", "Ser cronista deportivo(a)"], keys: [3, 5, 6] },
+      { activities: ["Interpretar música barroca", "Negociar IPOs", "Ser dermatólogo(a)"], keys: [7, 4, 8] },
+      { activities: ["Trabajar en hidroponía", "Instalar paneles solares", "Analizar razones financieras"], keys: [0, 1, 9] },
+      { activities: ["Investigar bioética", "Diseñar empaques", "Escribir sátira política"], keys: [3, 5, 6] },
+      { activities: ["Cantar música renacentista", "Ser CEO de corporación", "Trabajar en medicina deportiva"], keys: [7, 4, 8] },
+      { activities: ["Criar abejas reinas", "Reparar servidores", "Llevar costos de producción"], keys: [0, 1, 9] },
+      { activities: ["Hacer investigación epigenética", "Crear NFTs artísticos", "Ser dramaturgo(a) experimental"], keys: [3, 5, 6] },
+      { activities: ["Tocar clavecín", "Vender portfolios de inversión", "Ser endocrinólogo(a)"], keys: [7, 4, 8] },
+      { activities: ["Plantar bambú", "Ensamblar satélites", "Hacer auditorías de riesgos"], keys: [0, 1, 9] },
 
-            <div class="col-menos" style="display:flex; justify-content:center;">
-              <div class="choice-circle ${isMenos}" 
-                   id="btn-menos-${triad.id}-${i}"
-                   onclick="selectKuder(${triad.id}, ${i}, 'menos')">
-                   -
-              </div>
-            </div>
-          </div>
-        `;
+      // Tríada 141-150
+      { activities: ["Estudiar biomedicina", "Diseñar sneakers personalizados", "Escribir microrrelatos"], keys: [3, 5, 6] },
+      { activities: ["Componer música experimental", "Dirigir holdings", "Ser inmunólogo(a)"], keys: [7, 4, 8] },
+      { activities: ["Trabajar en agricultura vertical", "Programar microcontroladores", "Realizar valuaciones"], keys: [0, 1, 2] },
+      { activities: ["Investigar neuroplasticidad", "Hacer performance art", "Ser poeta slam"], keys: [3, 5, 6] },
+      { activities: ["Cantar música gregoriana", "Ser venture capitalist", "Trabajar en medicina forense"], keys: [7, 4, 8] },
+      { activities: ["Cultivar microgreens", "Reparar motherboards", "Hacer consolidación de empresas"], keys: [0, 1, 9] },
+      { activities: ["Estudiar farmacogenómica", "Diseñar wearables", "Escribir distopías"], keys: [3, 5, 6] },
+      { activities: ["Tocar theremin", "Administrar hedge funds", "Ser gastroenterólogo(a)"], keys: [7, 4, 8] },
+      { activities: ["Sembrar microalgas", "Instalar domótica", "Organizar fusiones"], keys: [0, 1, 9] },
+      { activities: ["Hacer investigación cuántica", "Crear instalaciones artísticas", "Ser novelista gráfico(a)"], keys: [3, 5, 6] },
+
+      // Tríada 151-160
+      { activities: ["Dirigir ópera moderna", "Negociar adquisiciones", "Ser neumólogo(a)"], keys: [7, 4, 8] },
+      { activities: ["Trabajar en biojardinería", "Usar CNC", "Analizar solvencia empresarial"], keys: [0, 1, 9] },
+      { activities: ["Investigar CRISPR", "Hacer land art", "Escribir manifiestos"], keys: [3, 5, 6] },
+      { activities: ["Tocar hang drum", "Ser angel investor", "Trabajar en medicina regenerativa"], keys: [7, 4, 8] },
+      { activities: ["Cultivar hongos gourmet", "Armar estaciones espaciales", "Hacer peritajes contables"], keys: [0, 1, 9] },
+      { activities: ["Estudiar xenobiología", "Diseñar experiencias VR", "Ser libretista de podcast"], keys: [3, 5, 6] },
+      { activities: ["Cantar en flashmobs", "Dirigir consorcios", "Ser oftalmólogo(a)"], keys: [7, 4, 8] },
+      { activities: ["Plantar trufas", "Instalar IoT industrial", "Llevar due diligence"], keys: [0, 1, 9] },
+      { activities: ["Hacer investigación de exoplanetas", "Crear arte generativo", "Escribir haikus modernos"], keys: [3, 5, 6] },
+      { activities: ["Tocar kalimba", "Vender activos digitales", "Ser urólogo(a)"], keys: [7, 4, 8] },
+
+      // Tríada 161-168
+      { activities: ["Trabajar en cultivos celulares", "Programar firmware", "Realizar due diligence financiero"], keys: [0, 1, 2] },
+      { activities: ["Investigar materia oscura", "Diseñar metaversos", "Ser poeta digital"], keys: [3, 5, 6] },
+      { activities: ["Componer soundtracks interactivos", "Administrar DAOs", "Trabajar en telemedicina"], keys: [7, 4, 8] },
+      { activities: ["Cultivar espirulina", "Reparar exoesqueletos", "Hacer valoraciones de startups"], keys: [0, 1, 9] },
+      { activities: ["Estudiar bioimpresión", "Crear criptoarte", "Escribir fan fiction profesional"], keys: [3, 5, 6] },
+      { activities: ["Cantar música adaptativa", "Ser trader de futuros", "Ser intensivista"], keys: [7, 4, 8] },
+      { activities: ["Sembrar en Marte (simulación)", "Ensamblar nanorobots", "Analizar blockchain financiero"], keys: [0, 1, 9] },
+      { activities: ["Investigar computación cuántica", "Diseñar hologramas artísticos", "Ser escritor(a) transmedia"], keys: [3, 5, 6] }
+    ];
+
+
+    const REWRITE_MAP = new Map([
+      // Tecnología / industria
+      ["Programar PLCs", "Programar controles de máquinas en una fábrica"],
+      ["Usar CNC", "Usar máquinas automáticas para cortar o tallar piezas"],
+      ["Instalar IoT industrial", "Instalar sensores y equipos conectados en una fábrica"],
+      ["Programar firmware", "Programar el sistema interno de un dispositivo"],
+      ["Programar microcontroladores", "Programar chips que controlan aparatos"],
+      ["Reparar motherboards", "Reparar placas principales de computadoras"],
+      ["Reparar servidores", "Reparar computadoras que dan servicio a muchas personas"],
+      ["Instalar fibra óptica", "Instalar cables de internet de alta velocidad"],
+      ["Reparar impresoras 3D", "Reparar impresoras que crean objetos en 3D"],
+      ["Usar robots industriales", "Trabajar con robots en una fábrica"],
+      ["Ensamblar satélites", "Armar equipos que van al espacio (satélites)"],
+      ["Armar estaciones espaciales", "Armar estructuras para trabajo en el espacio (simulación)"],
+      ["Ensamblar nanorobots", "Armar robots muy pequeños (micro-robots)"],
+
+      // Ciencia avanzada
+      ["Investigar nanotecnología", "Investigar tecnología a escala muy pequeña"],
+      ["Estudiar neurociencia", "Estudiar el cerebro y cómo funciona"],
+      ["Hacer investigación genómica", "Investigar genes y herencia"],
+      ["Hacer investigación epigenética", "Investigar cómo se activan o desactivan genes"],
+      ["Investigar CRISPR", "Investigar edición genética"],
+      ["Estudiar farmacogenómica", "Estudiar tratamientos según la genética"],
+      ["Estudiar xenobiología", "Estudiar vida fuera de la Tierra (en teoría)"],
+      ["Hacer investigación cuántica", "Investigar física cuántica"],
+      ["Investigar computación cuántica", "Investigar computación basada en física cuántica"],
+      ["Investigar materia oscura", "Investigar la “materia invisible” del universo"],
+      ["Hacer investigación de exoplanetas", "Investigar planetas fuera del sistema solar"],
+      ["Estudiar bioimpresión", "Estudiar impresión 3D de tejidos"],
+      ["Trabajar en cultivos celulares", "Trabajar con células en laboratorio"],
+      ["Analizar blockchain financiero", "Analizar registros digitales usados en finanzas"],
+
+      // Salud (especialidades)
+      ["Ser oncólogo(a)", "Ser médico(a) especializado(a) en cáncer"],
+      ["Ser geriatra", "Ser médico(a) especializado(a) en personas mayores"],
+      ["Ser psiquiatra", "Ser médico(a) especializado(a) en salud mental"],
+      ["Ser cardiólogo(a)", "Ser médico(a) especializado(a) en el corazón"],
+      ["Ser neonatólogo(a)", "Ser médico(a) de recién nacidos"],
+      ["Ser neurólogo(a)", "Ser médico(a) especializado(a) en el sistema nervioso"],
+      ["Ser endocrinólogo(a)", "Ser médico(a) especializado(a) en hormonas"],
+      ["Ser inmunólogo(a)", "Ser médico(a) especializado(a) en defensas del cuerpo"],
+      ["Ser neumólogo(a)", "Ser médico(a) especializado(a) en pulmones"],
+      ["Ser gastroenterólogo(a)", "Ser médico(a) especializado(a) en el aparato digestivo"],
+      ["Ser oftalmólogo(a)", "Ser médico(a) especializado(a) en la vista"],
+      ["Ser urólogo(a)", "Ser médico(a) especializado(a) en vías urinarias"],
+      ["Ser intensivista", "Ser médico(a) de cuidados intensivos"],
+      ["Trabajar en telemedicina", "Atender pacientes a distancia (por videollamada)"],
+      ["Trabajar en medicina regenerativa", "Trabajar en tratamientos para reparar tejidos"],
+      ["Trabajar en cuidados paliativos", "Acompañar a personas con enfermedades graves para aliviar su malestar"],
+
+      // Finanzas / negocios
+      ["Administrar hedge funds", "Administrar fondos de inversión de alto riesgo"],
+      ["Negociar IPOs", "Negociar la salida a bolsa de una empresa"],
+      ["Vender portfolios de inversión", "Vender planes de inversión"],
+      ["Hacer valoraciones de startups", "Calcular cuánto vale una empresa nueva"],
+      ["Llevar due diligence", "Hacer una revisión a fondo antes de invertir o comprar"],
+      ["Realizar due diligence financiero", "Hacer una revisión financiera a fondo antes de invertir o comprar"],
+      ["Ser venture capitalist", "Invertir en empresas nuevas"],
+      ["Ser capitalista de riesgo", "Invertir en empresas nuevas"],
+      ["Ser angel investor", "Invertir al inicio de una empresa nueva"],
+      ["Administrar DAOs", "Administrar organizaciones online basadas en reglas"],
+      ["Ser trader de futuros", "Comprar y vender contratos a futuro en mercados"],
+
+      // Digital / web3 / VR / NFTs
+      ["Diseñar experiencias VR", "Diseñar experiencias en realidad virtual"],
+      ["Diseñar metaversos", "Diseñar mundos virtuales"],
+      ["Crear NFTs artísticos", "Crear arte digital con certificado"],
+      ["Crear criptoarte", "Crear arte digital ligado a criptomonedas"],
+      ["Diseñar hologramas artísticos", "Diseñar imágenes en 3D tipo holograma"],
+      ["Ser escritor(a) transmedia", "Escribir historias para varios formatos (video, audio, web)"],
+      ["Componer soundtracks interactivos", "Componer música que cambia según lo que hace la persona"],
+      ["Cantar música adaptativa", "Cantar música que se ajusta a la situación o al público"],
+    ]);
+
+    function rewriteMarkedActivities(triadsArr) {
+      triadsArr.forEach(t => {
+        t.activities = t.activities.map(a => REWRITE_MAP.get(a) ?? a);
       });
-
-      card.innerHTML = headerHtml + rowsHtml;
-      container.appendChild(card);
-    });
-
-    updateProgress();
-    
-    // Actualizar botones de navegación
-    document.getElementById('prevBtn').disabled = currentPage === 0;
-    const nextBtn = document.getElementById('nextBtn');
-    if (end >= KUDER_TRIADS.length) {
-      nextBtn.innerText = "FINALIZAR TEST";
-      nextBtn.onclick = finishTest;
-    } else {
-      nextBtn.innerText = "Siguiente";
-      nextBtn.onclick = nextPage;
-    }
-  }
-
-  // Lógica de selección (Validación Cruzada)
-  function selectKuder(triadId, itemIndex, type) {
-    const currentAns = answers[triadId];
-
-    // Si selecciono MAS
-    if (type === 'mas') {
-      if (currentAns.mas === itemIndex) return; // Ya estaba
-      if (currentAns.menos === itemIndex) currentAns.menos = null; // Quitar de menos si estaba ahí
-      currentAns.mas = itemIndex;
-    } 
-    // Si selecciono MENOS
-    else {
-      if (currentAns.menos === itemIndex) return; // Ya estaba
-      if (currentAns.mas === itemIndex) currentAns.mas = null; // Quitar de mas si estaba ahí
-      currentAns.menos = itemIndex;
     }
 
-    // Actualizar visualmente
-    updateTriadVisuals(triadId);
-  }
+    // ✅ aplicar una vez
+    rewriteMarkedActivities(triads);
 
-  function updateTriadVisuals(triadId) {
-    const ans = answers[triadId];
-    
-    // Limpiar todos los botones de esta tríada
-    for(let i=0; i<3; i++) {
-      const btnMas = document.getElementById(`btn-mas-${triadId}-${i}`);
-      const btnMenos = document.getElementById(`btn-menos-${triadId}-${i}`);
-      if(btnMas) btnMas.classList.remove('selected');
-      if(btnMenos) btnMenos.classList.remove('selected');
+
+    // Definiciones de áreas
+    const areas = [
+      {
+        code: 0,
+        name: "AIRE LIBRE",
+        description: "Trabajos en contacto con la naturaleza, cultivo de plantas o cría de animales. Actividades al aire libre.",
+        professions: ["Ingeniero Agrónomo", "Veterinario", "Biólogo", "Guardabosques", "Paisajista", "Técnico Agrícola"]
+      },
+      {
+        code: 1,
+        name: "MECÁNICO",
+        description: "Trabajos manuales con máquinas y herramientas. Comprensión de aparatos mecánicos.",
+        professions: ["Ingeniero Mecánico", "Técnico Electrónico", "Mecánico", "Técnico en Refrigeración", "Operador de Maquinaria"]
+      },
+      {
+        code: 2,
+        name: "CÁLCULO",
+        description: "Trabajo con números, razonamiento deductivo y resolución de problemas matemáticos.",
+        professions: ["Contador", "Actuario", "Estadístico", "Analista Financiero", "Programador", "Ingeniero en Sistemas"]
+      },
+      {
+        code: 3,
+        name: "CIENTÍFICO",
+        description: "Descubrimiento de nuevos hechos, investigación, resolución de problemas físicos, químicos o biológicos.",
+        professions: ["Médico", "Químico", "Físico", "Biólogo", "Investigador", "Farmacéutico", "Bioquímico"]
+      },
+      {
+        code: 4,
+        name: "PERSUASIVO",
+        description: "Trato con personas, negocios, venta de productos, liderazgo e influencia.",
+        professions: ["Vendedor", "Gerente Comercial", "Abogado", "Político", "Relacionista Público", "Ejecutivo de Ventas"]
+      },
+      {
+        code: 5,
+        name: "ARTÍSTICO",
+        description: "Trabajos creativos con diseño, colores, materiales plásticos y expresión gráfica.",
+        professions: ["Diseñador Gráfico", "Arquitecto", "Artista Plástico", "Fotógrafo", "Diseñador de Interiores", "Ilustrador"]
+      },
+      {
+        code: 6,
+        name: "LITERARIO",
+        description: "Gusto por la lectura, escritura y expresión verbal oral y escrita.",
+        professions: ["Escritor", "Periodista", "Editor", "Profesor de Literatura", "Bibliotecario", "Corrector de Estilo"]
+      },
+      {
+        code: 7,
+        name: "MUSICAL",
+        description: "Preferencia por música, conciertos, instrumentos y actividades relacionadas con el sonido.",
+        professions: ["Músico", "Compositor", "Director de Orquesta", "Profesor de Música", "Técnico de Sonido", "Productor Musical"]
+      },
+      {
+        code: 8,
+        name: "ASISTENCIAL",
+        description: "Actividades de ayuda a los demás, búsqueda del bienestar de las personas.",
+        professions: ["Trabajador Social", "Enfermero", "Psicólogo", "Profesor", "Orientador", "Médico General", "Terapeuta"]
+      },
+      {
+        code: 9,
+        name: "ADMINISTRATIVO",
+        description: "Tareas de oficina que requieren precisión, orden, exactitud y manejo de archivos.",
+        professions: ["Secretario Ejecutivo", "Administrador", "Asistente Administrativo", "Archivero", "Recepcionista"]
+      }
+    ];
+
+    // ================== ESTADO ==================
+    const CHUNK = 10; // tríadas por sección
+    let userName = "", userLastName = "", userEmail = "";
+    let currentSection = 0;
+    let answers = {}; // { triadIndex: { mas: activityIndex, menos: activityIndex } }
+
+    // ================== CONSTRUCCIÓN DE SECCIONES ==================
+    function buildSections() {
+      const arr = [];
+      for (let i = 0; i < triads.length; i += CHUNK) {
+        arr.push({ start: i, end: Math.min(i + CHUNK, triads.length) });
+      }
+      return arr;
+    }
+    const sections = buildSections();
+
+    // ================== UI INICIO ==================
+    const nameInput = document.getElementById("userName");
+    const lastNameInput = document.getElementById("userLastName");
+    const emailInput = document.getElementById("userEmail");
+    const startBtn = document.getElementById("startBtn");
+
+    function emailOk(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+    function updateStartState() {
+      startBtn.disabled = !(nameInput.value.trim() && lastNameInput.value.trim() && emailOk(emailInput.value.trim()));
+    }
+    nameInput.addEventListener("input", updateStartState);
+    lastNameInput.addEventListener("input", updateStartState);
+    emailInput.addEventListener("input", updateStartState);
+
+    startBtn.addEventListener("click", startTest);
+    document.getElementById("prevBtn").addEventListener("click", previousSection);
+    document.getElementById("nextBtn").addEventListener("click", nextSection);
+    document.getElementById("restartBtn").addEventListener("click", restartTest);
+
+    function startTest() {
+      userName = nameInput.value.trim();
+      userLastName = lastNameInput.value.trim();
+      userEmail = emailInput.value.trim();
+      document.getElementById("registrationScreen").classList.add("hidden");
+      document.getElementById("testScreen").classList.remove("hidden");
+      renderSection();
     }
 
-    // Marcar los seleccionados
-    if (ans.mas !== null) {
-      const btn = document.getElementById(`btn-mas-${triadId}-${ans.mas}`);
-      if(btn) btn.classList.add('selected');
-    }
-    if (ans.menos !== null) {
-      const btn = document.getElementById(`btn-menos-${triadId}-${ans.menos}`);
-      if(btn) btn.classList.add('selected');
+    // ================== RENDER SECCIÓN ==================
+    function renderSection() {
+      const s = sections[currentSection];
+      const container = document.getElementById("sectionContainer");
+
+      let html = `<div class="section-title">Grupos ${s.start + 1} – ${s.end}</div>`;
+
+      for (let i = s.start; i < s.end; i++) {
+        const triad = triads[i];
+        const ans = answers[i] || {};
+
+        html += `
+          <div class="triad-item">
+            <div class="triad-number">Grupo ${i + 1} de ${triads.length}</div>
+        `;
+
+        triad.activities.forEach((activity, actIdx) => {
+          const isMas = ans.mas === actIdx;
+          const isMenos = ans.menos === actIdx;
+
+          html += `
+            <div class="activity-option">
+              <div class="activity-text">${activity}</div>
+              <div class="choice-buttons">
+                <button class="choice-btn ${isMas ? 'active-mas' : ''}" 
+                        onclick="selectChoice(${i}, ${actIdx}, 'mas')">
+                  +
+                </button>
+                <button class="choice-btn ${isMenos ? 'active-menos' : ''}" 
+                        onclick="selectChoice(${i}, ${actIdx}, 'menos')">
+                  −
+                </button>
+              </div>
+            </div>
+          `;
+        });
+
+        html += `</div>`;
+      }
+
+      container.innerHTML = html;
+      updateProgress();
+      updateNavigationButtons();
     }
 
-    // Marcar tarjeta como completada
-    const card = document.getElementById(`triad-${triadId}`);
-    if (ans.mas !== null && ans.menos !== null) {
-      card.classList.add('completed');
-    } else {
-      card.classList.remove('completed');
-    }
-    
-    updateProgress();
-  }
+    function selectChoice(triadIdx, activityIdx, type) {
+      if (!answers[triadIdx]) answers[triadIdx] = {};
 
-  function updateProgress() {
-    const total = KUDER_TRIADS.length;
-    let completed = 0;
-    for(let id in answers) {
-      if(answers[id].mas !== null && answers[id].menos !== null) completed++;
-    }
-    
-    const percent = Math.round((completed / total) * 100);
-    document.getElementById('progressBar').style.width = percent + '%';
-    document.getElementById('progressText').innerText = `${percent}%`;
-    
-    const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
-    document.getElementById('pageIndicator').innerText = `Página ${currentPage + 1} de ${totalPages}`;
-  }
+      // Si ya está seleccionado, deseleccionar
+      if (answers[triadIdx][type] === activityIdx) {
+        delete answers[triadIdx][type];
+      } else {
+        // Si es la misma actividad que tiene el otro tipo, intercambiar
+        const otherType = type === 'mas' ? 'menos' : 'mas';
+        if (answers[triadIdx][otherType] === activityIdx) {
+          delete answers[triadIdx][otherType];
+        }
+        answers[triadIdx][type] = activityIdx;
+      }
 
-  function nextPage() {
-    // Validar que la página actual esté completa antes de avanzar
-    const start = currentPage * ITEMS_PER_PAGE;
-    const end = Math.min(start + ITEMS_PER_PAGE, KUDER_TRIADS.length);
-    
-    let pageComplete = true;
-    for(let i = start; i < end; i++) {
-      const tId = KUDER_TRIADS[i].id;
-      if (!answers[tId] || answers[tId].mas === null || answers[tId].menos === null) {
-        pageComplete = false;
-        break;
+      renderSection();
+    }
+    window.selectChoice = selectChoice;
+
+    function isSectionComplete() {
+      const s = sections[currentSection];
+      for (let i = s.start; i < s.end; i++) {
+        const ans = answers[i];
+        if (!ans || ans.mas === undefined || ans.menos === undefined) return false;
+        if (ans.mas === ans.menos) return false; // No pueden ser iguales
+      }
+      return true;
+    }
+
+    function updateNavigationButtons() {
+      document.getElementById("prevBtn").disabled = currentSection === 0;
+      const next = document.getElementById("nextBtn");
+      next.disabled = !isSectionComplete();
+      next.textContent = (currentSection === sections.length - 1) ? "Finalizar Test" : "Siguiente";
+    }
+
+    function updateProgress() {
+      const total = sections.length;
+      const p = ((currentSection + 1) / total) * 100;
+      document.getElementById("progressFill").style.width = p + "%";
+      document.getElementById("progressPercent").textContent = Math.round(p) + "%";
+      document.getElementById("pageIndicator").textContent = `Sección ${currentSection + 1} de ${total}`;
+    }
+
+    function previousSection() {
+      if (currentSection > 0) {
+        currentSection--;
+        renderSection();
+        window.scrollTo({ top: 0, behavior: "smooth" });
       }
     }
 
-    if (!pageComplete) {
-      alert("Por favor responda todos los grupos de esta página antes de continuar.");
-      return;
+    function nextSection() {
+      if (currentSection < sections.length - 1) {
+        currentSection++;
+        renderSection();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        calculateResults();
+      }
     }
 
-    currentPage++;
-    renderPage();
-    window.scrollTo(0,0);
-  }
+    // ================== CÁLCULO DE RESULTADOS ==================
+    function calculateResults() {
+      // Verificar que todas las tríadas estén completadas
+      if (Object.keys(answers).length !== triads.length) {
+        alert("Por favor complete todas las tríadas antes de calcular resultados.");
+        return;
+      }
 
-  function prevPage() {
-    if(currentPage > 0) {
-      currentPage--;
-      renderPage();
-      window.scrollTo(0,0);
+      // Inicializar contadores por área (0-9)
+      const scores = Array(10).fill(0);
+      let verificationScore = 0;
+
+      // ✅ CORRECCIÓN CRÍTICA: Calcular puntuaciones sumando AMBAS áreas (más Y menos)
+      triads.forEach((triad, idx) => {
+        const ans = answers[idx];
+        if (!ans || ans.mas === undefined || ans.menos === undefined) return;
+
+        const masKey = triad.keys[ans.mas];
+        const menosKey = triad.keys[ans.menos];
+
+        // Sumar 1 al área de "más" Y al área de "menos"
+        scores[masKey]++;
+        scores[menosKey]++;
+
+        // Verificación: contar respuestas coherentes
+        if (ans.mas !== ans.menos) verificationScore++;
+      });
+
+      // ✅ CORRECCIÓN: Validación de escala V según manual (página 2)
+      // VÁLIDO: 31-39, DUDOSO: 28-32, INVÁLIDO: < 28 o > 39
+      const esValido = verificationScore >= 31 && verificationScore <= 39;
+      const estadoValidez = verificationScore < 28 ? 'INVALIDO' :
+        verificationScore <= 32 ? 'DUDOSO' :
+          verificationScore <= 39 ? 'VALIDO' : 'INVALIDO';
+
+      // Calcular percentiles (simplificado - en producción usar baremos)
+      // Para este ejemplo, usamos el puntaje directo como percentil aproximado
+      const maxPossible = triads.length / 3; // Cada área podría tener máximo esto
+      const percentiles = scores.map(score => Math.round((score / maxPossible) * 100));
+
+      // Determinar código de perfil (2 áreas más altas)
+      const areaScores = scores.map((score, idx) => ({ code: idx, score, percentile: percentiles[idx] }));
+      areaScores.sort((a, b) => b.score - a.score);
+
+      const profileCode = areaScores.slice(0, 2).map(a => a.code).sort((a, b) => a - b).join('-');
+
+      // Enviar datos a Google Sheets
+      sendToGoogleSheets(scores, verificationScore);
+
+      // Mostrar resultados
+      showResults({
+        scores,
+        percentiles,
+        profileCode,
+        esValido,
+        estadoValidez,
+        verificationScore,
+        topAreas: areaScores.slice(0, 3)
+      });
     }
-  }
 
-  function finishTest() {
-    // Validar final
-    const total = KUDER_TRIADS.length;
-    let completed = 0;
-    for(let id in answers) {
-      if(answers[id].mas !== null && answers[id].menos !== null) completed++;
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzgaEk6vm6I2UYuxTCl5z8YoIHRYLTHFIT5eNVhcOG4-suWhDENjjBjrH0Ua3Tny9vQ/exec";
+
+    async function sendToGoogleSheets(scores, verificationScore) {
+      const today = new Date();
+      const fecha = today.toLocaleDateString("es-ES", { year: "numeric", month: "2-digit", day: "2-digit" });
+
+      // Preparar respuestas: para cada tríada, guardamos mas y menos
+      const respuestas = [];
+      for (let i = 0; i < triads.length; i++) {
+        const ans = answers[i] || {};
+        respuestas.push(`${ans.mas ?? ''}|${ans.menos ?? ''}`);
+      }
+
+      // Admin desde localStorage
+      const adminData = localStorage.getItem("adminData");
+      let admin;
+      if (adminData) {
+        admin = JSON.parse(adminData);
+        console.log("Admin logueado:", admin.nombre);
+      } else {
+        console.log("No hay admin logueado.");
+      }
+
+      const correoAdmin = (admin && (admin.correo || admin.email)) ? (admin.correo || admin.email) : "escencialconsult@gmail.com";
+
+      const payload = {
+        fecha,
+        nombre: userName,
+        apellido: userLastName,
+        correo: userEmail,
+        correoAdmin,
+        respuestas
+      };
+
+      try {
+        const res = await fetch(WEB_APP_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(payload)
+        });
+        console.log("GAS Response:", await res.text());
+        
+        // Confirmar guardado visualmente
+        document.getElementById('validityBox').innerText = "¡Datos guardados correctamente!";
+        document.getElementById('validityBox').style.color = "#059669";
+        
+      } catch (error) {
+        console.error("Error enviando a Google Sheets:", error);
+        document.getElementById('validityBox').innerText = "Error de conexión";
+        document.getElementById('validityBox').style.color = "#ef4444";
+      }
     }
 
-    if(completed < total) {
-      alert(`Faltan preguntas por responder. (${completed}/${total})`);
-      return;
+    function showResults(results) {
+      document.getElementById("testScreen").classList.add("hidden");
+      document.getElementById("resultsScreen").classList.remove("hidden");
+
+      // MODIFICADO: NO MOSTRAR RESULTADOS
+      // Solo mostrar mensaje de guardado
+      document.getElementById('areasContainer').innerHTML = ""; // Limpiar áreas
+      document.getElementById('profileCode').innerText = "--"; // Ocultar código
+      document.getElementById('profileDescription').innerText = ""; // Ocultar descripción
+      document.querySelector('.profile-summary').style.display = 'none'; // Ocultar resumen
+      document.querySelector('h2:nth-of-type(1)').style.display = 'none'; // Ocultar título "Áreas de Interés"
+      document.getElementById('restartBtn').style.display = 'none'; // Ocultar botón reiniciar
+      
+      // El mensaje de "Guardando datos..." ya está en validityBox
     }
 
-    clearInterval(timerInterval);
-    timeEnd = Date.now();
-    document.getElementById('timerDisplay').style.display = 'none';
-    showSection('finalSection');
-    
-    sendResults();
-  }
-
-  // ========== ENVÍO DE DATOS ==========
-  function sendResults() {
-    const tiempo = formatTimeUsed(timeStart, timeEnd);
-    
-    // Formatear respuestas: "1:M0-L2, 2:M1-L0..."
-    const respuestasStr = KUDER_TRIADS.map(t => {
-      const a = answers[t.id];
-      const m = a && a.mas !== null ? a.mas : 'X';
-      const l = a && a.menos !== null ? a.menos : 'X';
-      return `${t.id}:${m}-${l}`;
-    }).join(', ');
-
-    const respuestasFinal = `{${tiempo} - ${respuestasStr}}`;
-
-    const now = new Date();
-    const fechaHora = now.toLocaleString('es-AR');
-
-    const filaOrdenada = [
-      user.name || "Anon",
-      user.lastname || "",
-      user.email || "",
-      fechaHora,
-      respuestasFinal
-    ];
-
-    const payload = {
-      nombreHoja: "Respuestas",
-      fila: filaOrdenada
-    };
-
-    // URL DEL SCRIPT (Usando la misma que DAT/WAIS)
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwe0J1ivh1DS-WayDrOwBaXBO70S3oCUobhPLiwxAUH1v8IMPxvB-pmFkpHUu76YujR/exec'; 
-
-    fetch(SCRIPT_URL, { 
-      method: 'POST', 
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    })
-    .then(() => {
-      document.getElementById('loadingMsg').innerHTML = `
-        <span style="color:#059669">¡Datos guardados correctamente!</span><br>
-        Puede cerrar esta ventana.
-      `;
-    })
-    .catch(err => {
-      document.getElementById('loadingMsg').innerText = "Error de conexión.";
-    });
-  }
-
-  // ========== UTILIDADES ==========
-  function formatTimeUsed(start, end) {
-    const diff = Math.floor((end - start) / 1000);
-    const m = Math.floor(diff / 60);
-    const s = diff % 60;
-    return `${m}m ${s}s`;
-  }
-
-  function startTimer() {
-    timerInterval = setInterval(() => {
-      elapsedSeconds++;
-      const m = Math.floor(elapsedSeconds / 60).toString().padStart(2,'0');
-      const s = (elapsedSeconds % 60).toString().padStart(2,'0');
-      document.getElementById('timerDisplay').innerText = `${m}:${s}`;
-    }, 1000);
-  }
-</script>
+    function restartTest() {
+      currentSection = 0;
+      answers = {};
+      userName = "";
+      userLastName = "";
+      userEmail = "";
+      nameInput.value = "";
+      lastNameInput.value = "";
+      emailInput.value = "";
+      updateStartState();
+      document.getElementById("resultsScreen").classList.add("hidden");
+      document.getElementById("registrationScreen").classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  </script>
 </body>
+
 </html>
