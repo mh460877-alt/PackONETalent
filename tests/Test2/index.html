@@ -36,7 +36,7 @@
       background-attachment: fixed;
     }
 
-    /* === BOTÓN VOLVER (AGREGADO) === */
+    /* === BOTÓN VOLVER === */
     .btn-back {
       position: fixed;
       top: 20px;
@@ -65,7 +65,7 @@
 
     .container {
       width: min(850px, 100% - 48px);
-      margin: 40px auto; /* Ajustado margen superior */
+      margin: 40px auto;
       background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(10px);
       border-radius: 24px;
@@ -74,7 +74,7 @@
       position: relative;
     }
 
-    /* === HEADER NUEVO (ESTILO DAT) === */
+    /* === HEADER (LOGO IZQUIERDA - TITULO DERECHA) === */
     .header {
       display: flex; 
       justify-content: space-between; 
@@ -99,7 +99,6 @@
       margin: 0;
     }
 
-    /* Estilos originales mantenidos para el resto */
     h2 {
       color: #020f27;
       font-size: 26px;
@@ -355,33 +354,20 @@
       flex: 1;
     }
 
-    /* Mensajes de Validez y Finalización */
-    .validity-warning {
-      background: #fef3c7;
-      border-left: 4px solid #f59e0b;
-      padding: 16px;
-      border-radius: 12px;
-      margin-bottom: 24px;
-    }
-
-    .validity-success {
-      background: #ecfeff;
-      border-left: 4px solid #06b6d4;
-      padding: 16px;
-      border-radius: 12px;
-      margin-bottom: 24px;
+    /* ELEMENTOS OCULTOS AL FINAL */
+    .profile-summary, #areasContainer, .area-card, .validity-warning, .validity-success {
+      display: none !important;
     }
 
     /* === RESPONSIVO PARA MÓVIL === */
     @media (max-width: 768px) {
       .container {
         width: 100%;
-        margin: 50px auto 20px auto; /* Espacio para botón volver */
+        margin: 60px auto 20px auto;
         padding: 20px;
         border-radius: 0;
       }
 
-      /* Header Apilado */
       .header {
         flex-direction: column;
         gap: 15px;
@@ -396,9 +382,8 @@
         text-align: center;
       }
 
-      /* Ajuste de preguntas para que entren los botones */
       .activity-option {
-        flex-direction: column; /* Texto arriba, botones abajo */
+        flex-direction: column;
         align-items: flex-start;
         padding: 15px;
         gap: 10px;
@@ -413,17 +398,16 @@
 
       .choice-buttons {
         width: 100%;
-        justify-content: flex-end; /* Botones a la derecha */
+        justify-content: flex-end;
         gap: 15px;
       }
 
       .choice-btn {
-        width: 60px; /* Botones más grandes para el dedo */
+        width: 60px;
         height: 50px;
         font-size: 20px;
       }
 
-      /* Botón Volver */
       .btn-back {
         position: relative;
         top: auto; left: auto;
@@ -439,7 +423,6 @@
 </head>
 
 <body>
-
   <a href="../../usuarios.html" class="btn-back">
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M15 18l-6-6 6-6"/>
@@ -448,7 +431,6 @@
   </a>
 
   <div class="container">
-    
     <div class="header">
       <div class="header-logo">
         <img src="./img/escencial-logo.png" alt="Escencial Consultora" />
@@ -508,7 +490,7 @@
     <div id="resultsScreen" class="hidden">
       <h1 style="color: #059669;">¡Test Completado!</h1>
       <div style="text-align: center; margin: 40px 0;">
-        <div style="font-size: 80px;">✅</div>
+        <div style="font-size: 40px;">✅</div>
         <p style="font-size: 18px; color: #475569; margin-top: 20px;">
           Sus respuestas han sido registradas exitosamente.
         </p>
@@ -518,14 +500,22 @@
       <div id="validityBox" style="text-align: center; margin-top: 20px; font-weight: bold; color: #0b4a6e;">
         Guardando datos...
       </div>
+      
+      <div id="areasContainer"></div>
+      <div class="profile-summary">
+        <div id="profileCode"></div>
+        <div id="profileDescription"></div>
+      </div>
+      <button class="btn" id="restartBtn" style="display:none;">Reiniciar</button>
     </div>
   </div>
 
   <script>
-    // ================== DATOS DEL TEST (COMPLETO) ==================
-    // Tríadas del Test de Kuder (168 tríadas = 504 actividades)
+    // DEFICIÓN DE URL AL PRINCIPIO PARA EVITAR ReferenceError
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxFWDzaw5HGzkosN8sbVZX3h36QZjk9K-Iwgw5kfgO9o1KzRvazkJyCKDz0jAGs6Z5D/exec";
+
+    // ================== DATOS DEL TEST (MANTENIENDO TODOS TUS DATOS) ==================
     const triads = [
-      // Tríada 1-10
       { activities: ["Visitar un museo", "Navegar por internet", "Coleccionar autógrafos"], keys: [5, 2, 6] },
       { activities: ["Pertenecer a un club social", "Pertenecer a un club literario", "Pertenecer a un club de aficionados a la astronomía"], keys: [8, 6, 3] },
       { activities: ["Asistir a una reunión de servicio social", "Asistir a una reunión política", "Asistir a un concierto"], keys: [8, 4, 7] },
@@ -536,8 +526,6 @@
       { activities: ["Ser ingeniero(a) en sistemas", "Trabajar haciendo encuestas o entrevistas", "Ilustrar libros"], keys: [2, 8, 5] },
       { activities: ["Investigar sobre nuevas variedades de trigo", "Desarrollar teorías matemáticas", "Atender enfermos"], keys: [0, 2, 8] },
       { activities: ["Ser profesor(a) de ciencias naturales", "Ser vendedor(a) de productos técnicos", "Ser artista"], keys: [3, 4, 5] },
-
-      // Tríada 11-20
       { activities: ["Criar animales", "Reparar aparatos eléctricos", "Resolver problemas de aritmética"], keys: [0, 1, 2] },
       { activities: ["Investigar las causas de las enfermedades", "Estudiar la historia del arte", "Componer música"], keys: [3, 5, 7] },
       { activities: ["Convencer a otros sobre algo", "Ayudar a niños con dificultades de aprendizaje", "Ordenar y clasificar documentos en una oficina"], keys: [4, 8, 9] },
@@ -548,8 +536,6 @@
       { activities: ["Estudiar la estructura del átomo", "Escribir poesías", "Participar en campañas de ayuda a niños discapacitados"], keys: [3, 6, 8] },
       { activities: ["Ser cantante", "Ser gerente de una empresa", "Ser secretario(a) ejecutivo(a)"], keys: [7, 4, 9] },
       { activities: ["Trabajar al aire libre", "Instalar equipos eléctricos", "Hacer presupuestos"], keys: [0, 1, 9] },
-
-      // Tríada 21-30
       { activities: ["Realizar investigaciones científicas", "Pintar cuadros", "Redactar noticias para un diario"], keys: [3, 5, 6] },
       { activities: ["Tocar un instrumento musical", "Dirigir un negocio", "Ayudar a personas con problemas"], keys: [7, 4, 8] },
       { activities: ["Sembrar y cosechar", "Usar herramientas de carpintería", "Analizar estados financieros"], keys: [0, 1, 9] },
@@ -560,8 +546,6 @@
       { activities: ["Componer canciones", "Convencer a otros de tus ideas", "Cuidar niños"], keys: [7, 4, 8] },
       { activities: ["Trabajar en un rancho", "Manejar maquinaria industrial", "Llevar registros contables"], keys: [0, 1, 9] },
       { activities: ["Hacer experimentos químicos", "Esculpir", "Escribir ensayos"], keys: [3, 5, 6] },
-
-      // Tríada 31-40
       { activities: ["Dar conciertos de música", "Negociar contratos", "Orientar a jóvenes"], keys: [7, 4, 8] },
       { activities: ["Cultivar hortalizas", "Arreglar motores", "Hacer gráficos estadísticos"], keys: [0, 1, 2] },
       { activities: ["Estudiar biología", "Hacer trabajos de cerámica", "Traducir textos"], keys: [3, 5, 6] },
@@ -572,8 +556,6 @@
       { activities: ["Trabajar en agricultura", "Soldar piezas metálicas", "Hacer balances"], keys: [0, 1, 9] },
       { activities: ["Hacer investigación médica", "Fotografiar", "Escribir guiones"], keys: [3, 5, 6] },
       { activities: ["Afinar instrumentos musicales", "Promocionar productos", "Enseñar a leer"], keys: [7, 4, 8] },
-
-      // Tríada 41-50
       { activities: ["Cuidar animales domésticos", "Reparar electrodomésticos", "Programar computadoras"], keys: [0, 1, 2] },
       { activities: ["Estudiar astronomía", "Hacer esculturas", "Ser editor(a) de libros"], keys: [3, 5, 6] },
       { activities: ["Tocar piano", "Ser agente de ventas", "Trabajar en un hospital"], keys: [7, 4, 8] },
@@ -584,8 +566,6 @@
       { activities: ["Investigar enfermedades", "Hacer trabajos en cuero", "Redactar informes"], keys: [3, 5, 6] },
       { activities: ["Cantar ópera", "Hacer negocios", "Ayudar en asilos"], keys: [7, 4, 8] },
       { activities: ["Sembrar flores", "Manejar grúas", "Hacer cuentas"], keys: [0, 1, 9] },
-
-      // Tríada 51-60
       { activities: ["Estudiar genética", "Pintar retratos", "Escribir novelas"], keys: [3, 5, 6] },
       { activities: ["Tocar guitarra", "Vender inmuebles", "Ser maestro(a)"], keys: [7, 4, 8] },
       { activities: ["Cosechar frutas", "Armar computadoras", "Hacer presupuestos"], keys: [0, 1, 9] },
@@ -596,8 +576,6 @@
       { activities: ["Cantar en un musical", "Convencer inversionistas", "Cuidar enfermos"], keys: [7, 4, 8] },
       { activities: ["Trabajar en un vivero", "Usar máquinas de precisión", "Organizar archivos"], keys: [0, 1, 9] },
       { activities: ["Estudiar física nuclear", "Hacer diseño gráfico", "Traducir libros"], keys: [3, 5, 6] },
-
-      // Tríada 61-70
       { activities: ["Tocar violín", "Negociar acuerdos", "Ser consejero(a) escolar"], keys: [7, 4, 8] },
       { activities: ["Plantar café", "Hacer trabajos de mecánica", "Realizar cálculos"], keys: [0, 1, 2] },
       { activities: ["Investigar el ADN", "Hacer vitrales", "Escribir biografías"], keys: [3, 5, 6] },
@@ -608,8 +586,6 @@
       { activities: ["Cuidar un jardín botánico", "Soldar circuitos", "Hacer contabilidad"], keys: [0, 1, 9] },
       { activities: ["Estudiar virología", "Hacer mosaicos", "Redactar ensayos"], keys: [3, 5, 6] },
       { activities: ["Interpretar jazz", "Ser comerciante", "Enseñar matemáticas"], keys: [7, 4, 8] },
-
-      // Tríada 71-80
       { activities: ["Trabajar en campo", "Reparar bicicletas", "Analizar presupuestos"], keys: [0, 1, 9] },
       { activities: ["Investigar células", "Fotografiar bodas", "Escribir poemas"], keys: [3, 5, 6] },
       { activities: ["Tocar batería", "Dirigir ventas", "Ser terapeuta"], keys: [7, 4, 8] },
@@ -620,8 +596,6 @@
       { activities: ["Hacer experimentos de física", "Hacer artesanías", "Escribir reseñas"], keys: [3, 5, 6] },
       { activities: ["Tocar flauta", "Ser ejecutivo(a) de ventas", "Dar terapia a niños"], keys: [7, 4, 8] },
       { activities: ["Trabajar en apicultura", "Instalar antenas", "Hacer nóminas"], keys: [0, 1, 9] },
-
-      // Tríada 81-90
       { activities: ["Investigar el clima", "Pintar murales", "Ser novelista"], keys: [3, 5, 6] },
       { activities: ["Componer bandas sonoras", "Negociar exportaciones", "Ser médico(a)"], keys: [7, 4, 8] },
       { activities: ["Cultivar orquídeas", "Reparar electrodomésticos", "Hacer cálculos de costos"], keys: [0, 1, 2] },
@@ -632,8 +606,6 @@
       { activities: ["Tocar saxofón", "Vender tecnología", "Ser nutricionista"], keys: [7, 4, 8] },
       { activities: ["Plantar arroz", "Armar robots", "Hacer declaraciones"], keys: [0, 1, 9] },
       { activities: ["Investigar océanos", "Diseñar interiores", "Escribir ciencia ficción"], keys: [3, 5, 6] },
-
-      // Tríada 91-100
       { activities: ["Dirigir bandas musicales", "Administrar franquicias", "Ser pediatra"], keys: [7, 4, 8] },
       { activities: ["Trabajar en silvicultura", "Reparar smartphones", "Analizar costos"], keys: [0, 1, 9] },
       { activities: ["Estudiar paleontología", "Hacer cerámica artística", "Ser poeta"], keys: [3, 5, 6] },
@@ -644,8 +616,6 @@
       { activities: ["Sembrar café", "Soldar estructuras", "Llevar inventarios"], keys: [0, 1, 9] },
       { activities: ["Estudiar geología", "Diseñar publicidad", "Redactar editoriales"], keys: [3, 5, 6] },
       { activities: ["Interpretar música clásica contemporánea", "Vender consultoría", "Ser enfermero(a) especializado(a)"], keys: [7, 4, 8] },
-
-      // Tríada 101-110
       { activities: ["Trabajar en acuicultura", "Reparar drones", "Hacer liquidaciones de impuestos"], keys: [0, 1, 9] },
       { activities: ["Hacer investigación espacial", "Hacer ilustraciones digitales", "Ser guionista"], keys: [3, 5, 6] },
       { activities: ["Tocar arpa", "Ser emprendedor(a)", "Dar apoyo psicológico"], keys: [7, 4, 8] },
@@ -656,8 +626,6 @@
       { activities: ["Estudiar neurociencia", "Diseñar videojuegos", "Ser dramaturgo(a)"], keys: [3, 5, 6] },
       { activities: ["Tocar violonchelo", "Ser director(a) comercial", "Trabajar en centros de rehabilitación"], keys: [7, 4, 8] },
       { activities: ["Criar alpacas", "Instalar sistemas de aire acondicionado", "Hacer estados financieros"], keys: [0, 1, 9] },
-
-      // Tríada 111-120
       { activities: ["Investigar energías renovables", "Hacer animación 3D", "Escribir ensayos filosóficos"], keys: [3, 5, 6] },
       { activities: ["Componer música electrónica", "Vender startups", "Ser oncólogo(a)"], keys: [7, 4, 8] },
       { activities: ["Trabajar en horticultura orgánica", "Programar PLCs", "Analizar flujos de efectivo"], keys: [0, 1, 2] },
@@ -668,8 +636,6 @@
       { activities: ["Tocar contrabajo", "Ser inversionista", "Trabajar en medicina humanitaria"], keys: [7, 4, 8] },
       { activities: ["Plantar cacao", "Ensamblar drones", "Hacer auditorías forenses"], keys: [0, 1, 9] },
       { activities: ["Investigar inteligencia artificial", "Hacer street art", "Ser crítico(a) de arte"], keys: [3, 5, 6] },
-
-      // Tríada 121-130
       { activities: ["Dirigir grupos corales", "Administrar fondos de inversión", "Ser cardiólogo(a)"], keys: [7, 4, 8] },
       { activities: ["Trabajar en permacultura", "Instalar fibra óptica", "Realizar análisis financieros"], keys: [0, 1, 9] },
       { activities: ["Estudiar química farmacéutica", "Diseñar tatuajes temporales", "Escribir memorias"], keys: [3, 5, 6] },
@@ -680,8 +646,6 @@
       { activities: ["Sembrar quinoa", "Usar robots industriales", "Organizar tesorería"], keys: [0, 1, 9] },
       { activities: ["Hacer investigación oceanográfica", "Diseñar merchandising", "Escribir ciencia ficción distópica"], keys: [3, 5, 6] },
       { activities: ["Tocar laúd", "Ser capitalista de riesgo", "Trabajar en cuidados paliativos"], keys: [7, 4, 8] },
-
-      // Tríada 131-140
       { activities: ["Cultivar hierbas aromáticas", "Armar impresoras industriales", "Hacer balances consolidados"], keys: [0, 1, 9] },
       { activities: ["Estudiar bioquímica", "Hacer body painting", "Ser cronista deportivo(a)"], keys: [3, 5, 6] },
       { activities: ["Interpretar música barroca", "Negociar IPOs", "Ser dermatólogo(a)"], keys: [7, 4, 8] },
@@ -692,8 +656,6 @@
       { activities: ["Hacer investigación epigenética", "Crear NFTs artísticos", "Ser dramaturgo(a) experimental"], keys: [3, 5, 6] },
       { activities: ["Tocar clavecín", "Vender portfolios de inversión", "Ser endocrinólogo(a)"], keys: [7, 4, 8] },
       { activities: ["Plantar bambú", "Ensamblar satélites", "Hacer auditorías de riesgos"], keys: [0, 1, 9] },
-
-      // Tríada 141-150
       { activities: ["Estudiar biomedicina", "Diseñar sneakers personalizados", "Escribir microrrelatos"], keys: [3, 5, 6] },
       { activities: ["Componer música experimental", "Dirigir holdings", "Ser inmunólogo(a)"], keys: [7, 4, 8] },
       { activities: ["Trabajar en agricultura vertical", "Programar microcontroladores", "Realizar valuaciones"], keys: [0, 1, 2] },
@@ -704,8 +666,6 @@
       { activities: ["Tocar theremin", "Administrar hedge funds", "Ser gastroenterólogo(a)"], keys: [7, 4, 8] },
       { activities: ["Sembrar microalgas", "Instalar domótica", "Organizar fusiones"], keys: [0, 1, 9] },
       { activities: ["Hacer investigación cuántica", "Crear instalaciones artísticas", "Ser novelista gráfico(a)"], keys: [3, 5, 6] },
-
-      // Tríada 151-160
       { activities: ["Dirigir ópera moderna", "Negociar adquisiciones", "Ser neumólogo(a)"], keys: [7, 4, 8] },
       { activities: ["Trabajar en biojardinería", "Usar CNC", "Analizar solvencia empresarial"], keys: [0, 1, 9] },
       { activities: ["Investigar CRISPR", "Hacer land art", "Escribir manifiestos"], keys: [3, 5, 6] },
@@ -716,8 +676,6 @@
       { activities: ["Plantar trufas", "Instalar IoT industrial", "Llevar due diligence"], keys: [0, 1, 9] },
       { activities: ["Hacer investigación de exoplanetas", "Crear arte generativo", "Escribir haikus modernos"], keys: [3, 5, 6] },
       { activities: ["Tocar kalimba", "Vender activos digitales", "Ser urólogo(a)"], keys: [7, 4, 8] },
-
-      // Tríada 161-168
       { activities: ["Trabajar en cultivos celulares", "Programar firmware", "Realizar due diligence financiero"], keys: [0, 1, 2] },
       { activities: ["Investigar materia oscura", "Diseñar metaversos", "Ser poeta digital"], keys: [3, 5, 6] },
       { activities: ["Componer soundtracks interactivos", "Administrar DAOs", "Trabajar en telemedicina"], keys: [7, 4, 8] },
@@ -730,7 +688,6 @@
 
 
     const REWRITE_MAP = new Map([
-      // Tecnología / industria
       ["Programar PLCs", "Programar controles de máquinas en una fábrica"],
       ["Usar CNC", "Usar máquinas automáticas para cortar o tallar piezas"],
       ["Instalar IoT industrial", "Instalar sensores y equipos conectados en una fábrica"],
@@ -744,8 +701,6 @@
       ["Ensamblar satélites", "Armar equipos que van al espacio (satélites)"],
       ["Armar estaciones espaciales", "Armar estructuras para trabajo en el espacio (simulación)"],
       ["Ensamblar nanorobots", "Armar robots muy pequeños (micro-robots)"],
-
-      // Ciencia avanzada
       ["Investigar nanotecnología", "Investigar tecnología a escala muy pequeña"],
       ["Estudiar neurociencia", "Estudiar el cerebro y cómo funciona"],
       ["Hacer investigación genómica", "Investigar genes y herencia"],
@@ -760,8 +715,6 @@
       ["Estudiar bioimpresión", "Estudiar impresión 3D de tejidos"],
       ["Trabajar en cultivos celulares", "Trabajar con células en laboratorio"],
       ["Analizar blockchain financiero", "Analizar registros digitales usados en finanzas"],
-
-      // Salud (especialidades)
       ["Ser oncólogo(a)", "Ser médico(a) especializado(a) en cáncer"],
       ["Ser geriatra", "Ser médico(a) especializado(a) en personas mayores"],
       ["Ser psiquiatra", "Ser médico(a) especializado(a) en salud mental"],
@@ -778,8 +731,6 @@
       ["Trabajar en telemedicina", "Atender pacientes a distancia (por videollamada)"],
       ["Trabajar en medicina regenerativa", "Trabajar en tratamientos para reparar tejidos"],
       ["Trabajar en cuidados paliativos", "Acompañar a personas con enfermedades graves para aliviar su malestar"],
-
-      // Finanzas / negocios
       ["Administrar hedge funds", "Administrar fondos de inversión de alto riesgo"],
       ["Negociar IPOs", "Negociar la salida a bolsa de una empresa"],
       ["Vender portfolios de inversión", "Vender planes de inversión"],
@@ -791,8 +742,6 @@
       ["Ser angel investor", "Invertir al inicio de una empresa nueva"],
       ["Administrar DAOs", "Administrar organizaciones online basadas en reglas"],
       ["Ser trader de futuros", "Comprar y vender contratos a futuro en mercados"],
-
-      // Digital / web3 / VR / NFTs
       ["Diseñar experiencias VR", "Diseñar experiencias en realidad virtual"],
       ["Diseñar metaversos", "Diseñar mundos virtuales"],
       ["Crear NFTs artísticos", "Crear arte digital con certificado"],
@@ -1089,59 +1038,6 @@
       });
     }
 
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzxunLU8XguIRlJrbYt2nDnp4_2DOo9dkE0jQlqqXQanzfja4Ua4ZgoBBd5rKl8xdex/exec";
-
-    async function sendToGoogleSheets(scores, verificationScore) {
-      const today = new Date();
-      const fecha = today.toLocaleDateString("es-ES", { year: "numeric", month: "2-digit", day: "2-digit" });
-
-      // Preparar respuestas: para cada tríada, guardamos mas y menos
-      const respuestas = [];
-      for (let i = 0; i < triads.length; i++) {
-        const ans = answers[i] || {};
-        respuestas.push(`${ans.mas ?? ''}|${ans.menos ?? ''}`);
-      }
-
-      // Admin desde localStorage
-      const adminData = localStorage.getItem("adminData");
-      let admin;
-      if (adminData) {
-        admin = JSON.parse(adminData);
-        console.log("Admin logueado:", admin.nombre);
-      } else {
-        console.log("No hay admin logueado.");
-      }
-
-      const correoAdmin = (admin && (admin.correo || admin.email)) ? (admin.correo || admin.email) : "escencialconsult@gmail.com";
-
-      const payload = {
-        fecha,
-        nombre: userName,
-        apellido: userLastName,
-        correo: userEmail,
-        correoAdmin,
-        respuestas
-      };
-
-      try {
-        const res = await fetch(WEB_APP_URL, {
-          method: "POST",
-          headers: { "Content-Type": "text/plain;charset=utf-8" },
-          body: JSON.stringify(payload)
-        });
-        console.log("GAS Response:", await res.text());
-        
-        // Confirmar guardado visualmente
-        document.getElementById('validityBox').innerText = "¡Datos guardados correctamente!";
-        document.getElementById('validityBox').style.color = "#059669";
-        
-      } catch (error) {
-        console.error("Error enviando a Google Sheets:", error);
-        document.getElementById('validityBox').innerText = "Error de conexión";
-        document.getElementById('validityBox').style.color = "#ef4444";
-      }
-    }
-
     function showResults(results) {
       document.getElementById("testScreen").classList.add("hidden");
       document.getElementById("resultsScreen").classList.remove("hidden");
@@ -1171,6 +1067,53 @@
       document.getElementById("resultsScreen").classList.add("hidden");
       document.getElementById("registrationScreen").classList.remove("hidden");
       window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    async function sendToGoogleSheets(scores, verificationScore) {
+      const today = new Date();
+      const fecha = today.toLocaleDateString("es-ES", { year: "numeric", month: "2-digit", day: "2-digit" });
+
+      // Preparar respuestas: para cada tríada, guardamos mas y menos
+      const respuestas = [];
+      for (let i = 0; i < triads.length; i++) {
+        const ans = answers[i] || {};
+        respuestas.push(`${ans.mas ?? ''}|${ans.menos ?? ''}`);
+      }
+
+      // Admin desde localStorage
+      const adminData = localStorage.getItem("adminData");
+      let admin;
+      if (adminData) {
+        admin = JSON.parse(adminData);
+      }
+
+      const correoAdmin = (admin && (admin.correo || admin.email)) ? (admin.correo || admin.email) : "escencialconsult@gmail.com";
+
+      const payload = {
+        fecha,
+        nombre: userName,
+        apellido: userLastName,
+        correo: userEmail,
+        correoAdmin,
+        respuestas
+      };
+
+      try {
+        const res = await fetch(WEB_APP_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(payload)
+        });
+        
+        // Confirmar guardado visualmente
+        document.getElementById('validityBox').innerText = "¡Datos guardados correctamente!";
+        document.getElementById('validityBox').style.color = "#059669";
+        
+      } catch (error) {
+        console.error("Error enviando a Google Sheets:", error);
+        document.getElementById('validityBox').innerText = "Error de conexión";
+        document.getElementById('validityBox').style.color = "#ef4444";
+      }
     }
   </script>
 </body>
