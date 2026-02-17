@@ -15,6 +15,95 @@
 
   <link rel="stylesheet" href="./assets/css/main.css">
 
+  <style>
+    @media (max-width: 768px) {
+      /* 1. Ajustar el contenedor principal */
+      .wrap {
+        overflow-x: hidden; /* Evita scroll lateral indeseado */
+      }
+
+      /* 2. Que la sección principal se apile (Texto arriba, imagen abajo) */
+      .hero {
+        flex-direction: column !important;
+        height: auto !important;
+        padding-top: 100px !important; /* Espacio para que no lo tape el menú */
+        padding-bottom: 50px !important;
+        display: flex !important;
+      }
+
+      /* 3. Centrar los textos */
+      .copy {
+        width: 100% !important;
+        max-width: 100% !important;
+        text-align: center !important;
+        padding: 0 20px !important;
+        margin-bottom: 40px !important;
+      }
+
+      /* Centrar la etiqueta pequeña de arriba */
+      .eyebrow {
+        justify-content: center !important;
+      }
+
+      /* 4. Botones grandes y uno debajo del otro */
+      .cta {
+        flex-direction: column !important;
+        gap: 15px !important;
+        display: flex !important;
+      }
+      
+      .btn {
+        width: 100% !important;
+        justify-content: center !important;
+        display: flex !important;
+      }
+
+      /* 5. Ajustar la parte visual (tarjetas) para que no se salgan */
+      .visual {
+        width: 100% !important;
+        position: relative !important;
+        right: auto !important;
+        top: auto !important;
+        transform: scale(0.9) !important; /* Achicar un poco para que quepa */
+        margin: 0 auto !important;
+        padding: 0 10px !important;
+      }
+
+      /* 6. Poner las tarjetas en una sola columna */
+      .feature-grid {
+        grid-template-columns: 1fr !important;
+        width: 100% !important;
+        display: grid !important;
+      }
+      
+      /* 7. Ajustar el menú de navegación */
+      .nav {
+        padding: 15px !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 15px !important;
+        height: auto !important; /* Permitir que crezca */
+      }
+      
+      .brand {
+        margin-bottom: 10px !important;
+        justify-content: center !important;
+        width: 100% !important;
+      }
+      
+      nav[aria-label="Navegación principal"] {
+        display: none !important; /* Ocultar enlaces del medio en móvil para ahorrar espacio */
+      }
+
+      /* Botón de admin en móvil */
+      .header-cta {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+      }
+    }
+  </style>
+
 </head>
 
 <body data-page="index">

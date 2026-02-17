@@ -9,7 +9,6 @@
   <link rel="shortcut icon" href="./img/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="./img/favicon.png">
 
-
   <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     
@@ -351,6 +350,103 @@
       border-color: #0b4a6e;
     }
 
+    /* === ESTILOS RESPONSIVOS PARA MÓVIL (CORRECCIÓN) === */
+    @media (max-width: 768px) {
+      
+      body {
+        padding: 10px !important;
+        background-attachment: scroll !important; /* Evita fondo fijo problemático en móvil */
+      }
+
+      /* 1. Contenedor a pantalla completa */
+      .container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 15px 10px !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+      }
+
+      /* 2. Encabezado apilado */
+      .header {
+        flex-direction: column !important;
+        text-align: center !important;
+        gap: 15px !important;
+        align-items: center !important;
+      }
+      
+      .header img {
+        max-width: 180px !important;
+        margin: 0 auto !important;
+      }
+      
+      .header h1 {
+        font-size: 18px !important;
+        text-align: center !important;
+        padding-left: 0 !important;
+      }
+
+      /* 3. Test 1 (Rapidez): Apilar filas verticalmente */
+      .test-row {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        padding: 15px !important;
+        border-bottom: 4px solid #e2e8f0 !important;
+      }
+      
+      .q-options {
+        justify-content: center !important;
+        width: 100% !important;
+      }
+      
+      .opt-btn {
+        min-width: 45px !important;
+        padding: 10px !important;
+      }
+
+      /* 4. Test Verbal/Ortografía: Opciones verticales */
+      .options-list, .options-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px !important;
+      }
+      
+      .question-item-ortografia {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+      }
+
+      /* 5. Botones generales */
+      .btn, button.btn {
+        width: 100% !important;
+        padding: 15px !important;
+        font-size: 16px !important;
+        margin-top: 15px !important;
+      }
+
+      /* 6. Botón Volver (Ahora visible y no flotante) */
+      .btn-back {
+        position: relative !important;
+        top: auto !important; 
+        left: auto !important;
+        display: block !important;
+        width: 100% !important;
+        text-align: center !important;
+        margin-bottom: 15px !important;
+        background: #f1f5f9;
+        color: #333;
+        border: 1px solid #cbd5e1;
+      }
+      
+      /* 7. Imágenes */
+      img {
+        max-width: 100% !important;
+        height: auto !important;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -509,7 +605,7 @@
 
     <div class="instructions-box">
       <span class="example-label">Ejemplo E 1</span>
-      <p>¿Qué número continúa esta serie? 2 4 6 8 ?</p>
+      <p>¿Qué número continúa esta serie? 2  5  8  11  ?</p>
       <div class="example-box">
         <div>A. 9</div>
         <div style="font-weight:bold; color:#0b4a6e;">B. 10 (Correcta)</div>
@@ -1282,7 +1378,7 @@ function finishTest6() {
     const fechaHora = now.toLocaleString('es-AR');
 
     // 6. EMAIL DESTINO (EL QUE INGRESÓ EL USUARIO)
-const emailDestino = document.getElementById('userEmail').value.trim();
+    const emailDestino = document.getElementById('userEmail').value.trim();
 
     // URL DE TU SCRIPT
     const RESULTS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw5oIKAyHPzCFpK5ruPeijE1Free0h6nkBEHvRWh_AC7Jf4rnmrdrprlQNgK3Wk5C1u/exec';

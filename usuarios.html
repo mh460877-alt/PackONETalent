@@ -78,6 +78,55 @@
       flex-grow: 1; /* Esto hace que la descripción ocupe el espacio y empuje el botón abajo */
       margin-bottom: 20px;
     }
+
+    /* === CÓDIGO RESPONSIVO PARA MÓVIL (CORRECCIÓN INTEGRADA) === */
+    @media (max-width: 768px) {
+      /* Ajuste del login en móvil */
+      .login-container {
+        padding: 20px;
+        width: 95%;
+        max-width: 100%;
+      }
+      
+      .login-card {
+        padding: 30px 20px;
+      }
+
+      /* Ajuste del panel principal en móvil */
+      .header-inner {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+      }
+      
+      .header-actions {
+        width: 100%;
+        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .user-pill {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      #logout-button {
+        width: 100%;
+      }
+
+      /* Grid de tarjetas en una sola columna */
+      .evaluations-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .eval-card {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+    }
   </style>
 
 </head>
