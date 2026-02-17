@@ -294,19 +294,33 @@
       margin-top: 5px;
       text-align: right;
     }
-    /* Test 5: una sola imagen + botones debajo */
+    
+    /* === ESTILOS MODIFICADOS PARA TEST 5 (ABSTRACTO) === */
     .q5-oneimg {
       border: 2px solid #e2e8f0;
       border-radius: 14px;
       padding: 16px;
-      margin-bottom: 20px;
-      background: #fafafa;
+      margin-bottom: 25px;
+      background: #ffffff;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+
+    .q5-guide-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 700;
+      color: #64748b;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     .q5-img-wrap {
-      background: #d0d0d0;
+      background: #f1f5f9;
       border-radius: 10px;
-      padding: 12px;
+      padding: 10px;
+      border: 1px solid #cbd5e1;
     }
 
     .q5-img {
@@ -314,16 +328,23 @@
       height: auto;
       display: block;
       background: white;
-      border-radius: 8px;
-      border: 1px solid rgba(0,0,0,0.15);
+      border-radius: 6px;
+    }
+
+    .q5-options-legend {
+      text-align: center;
+      font-size: 13px;
+      color: #0b4a6e;
+      margin: 12px 0 8px 0;
+      font-weight: 600;
     }
 
     .q5-options-below {
       display: flex;
-      gap: 25px;
-      justify-content: flex-end;
+      gap: 15px;
+      justify-content: center; /* Centrado en escritorio */
       flex-wrap: wrap;
-      margin-top: 14px;
+      margin-top: 10px;
     }
 
     .q5-letter-btn {
@@ -446,25 +467,29 @@
         height: auto !important;
       }
 
-      /* === CORRECCIÓN TEST 5: BOTONES ORDENADOS EN FILA === */
+      /* === CORRECCIÓN TEST 5: BOTONES ORDENADOS EN FILA + GUÍAS CLARAS === */
       .q5-options-below {
         display: flex !important;
-        justify-content: space-between !important; /* Distribuye el espacio */
-        gap: 5px !important; /* Menor espacio para que quepan todos */
+        justify-content: space-between !important; /* Distribuye A-E a lo ancho */
+        gap: 5px !important;
         width: 100% !important;
-        margin-top: 15px !important;
+        margin-top: 10px !important;
       }
 
       .q5-letter-btn {
-        width: auto !important; /* Quitar ancho fijo */
-        flex: 1 !important;     /* Hacer que crezcan todos igual */
-        height: 45px !important; /* Altura cómoda */
+        width: auto !important;
+        flex: 1 !important; /* Todos crecen igual */
+        height: 48px !important; /* Altura cómoda */
         margin: 0 !important;
         font-size: 18px !important;
         padding: 0 !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
+      }
+      
+      .q5-guide-label {
+        font-size: 11px !important; /* Texto un poco más chico para que entre */
       }
     }
 
@@ -657,7 +682,7 @@
     <div class="instructions-box">
       <p>En esta prueba se trata de apreciar la capacidad para razonar con figuras y dibujos. En cada fila hay cuatro figuras llamadas PROBLEMA y cinco llamadas RESPUESTA.</p>
       <p><strong>Tarea:</strong> Las figuras PROBLEMA forman una serie porque están ordenadas siguiendo una ley. Su tarea consiste en elegir, entre las figuras RESPUESTA, la que debiera ir a continuación (es decir, la que sería la número cinco de la serie).</p>
-      <p><strong>IMPORTANTE:</strong> Debe tener el cuadernillo de imágenes junto a usted para ver las figuras de cada pregunta.</p>
+      <p><strong>IMPORTANTE:</strong> Observe atentamente la imagen. La fila superior muestra el problema y la fila inferior las opciones.</p>
     </div>
 
     <div class="instructions-box">
@@ -688,14 +713,15 @@
   <div id="instSection6" class="section">
     <h2>Test 6: Relaciones Espaciales</h2>
     <div class="instructions-box">
-      <p>Esta prueba intenta medir su capacidad para imaginar cómo se verán los objetos en el espacio. Lea cada ejercicio y decida cuál de las figuras de la derecha es la correcta.</p>
+      <p>Esta prueba consta de 50 ejercicios. En cada uno de ellos se presenta un modelo o patrón en el que algunas zonas están sombreadas.</p>
+      <p><strong>Tarea:</strong> A la derecha de cada modelo se ofrecen cuatro figuras de tres dimensiones. Su tarea consiste en averiguar cuál de esas figuras es la <strong>única</strong> que ha podido formarse a partir del modelo. El modelo siempre presenta la parte exterior de la figura.</p>
     </div>
 
     <div class="example-box">
       <span class="example-label">EJEMPLO</span>
       <img src="./img/espacial/e1.webp" alt="Ejemplo E1" style="max-width: 100%; height: auto; display: block; margin: 15px auto;">
       <p style="text-align: justify; line-height: 1.6; margin-top: 15px;">
-        En este ejemplo, la respuesta correcta es la que corresponde al desplegable.
+        En el Ejemplo E1 el modelo formará una caja rectangular con las dos caras mayores y una de las pequeñas laterales sombreadas. Fíjese en las respuestas A, B, C y D. Las respuestas A y C son incorrectas porque la cara superior no está sombreada. La respuesta B, tampoco es correcta porque tiene sombreados uno de los laterales largos. La respuesta correcta es D porque la cara superior y uno de los laterales cortos están sombreados. La cara inferior está debajo de la letra D en la línea correspondiente al Ejemplo E1.
       </p>
     </div>
 
@@ -1247,7 +1273,10 @@
     div.className = 'q5-oneimg';
 
     div.innerHTML = `
-      <div class="q-number">Pregunta ${i}</div>
+      <div class="q5-guide-label">
+        <span>⬆️ SERIE (Pregunta)</span>
+        <span>⬇️ OPCIONES (Respuesta)</span>
+      </div>
 
       <div class="q5-img-wrap">
         <img class="q5-img" src="${imgSrc}" alt="Pregunta ${i}"
@@ -1255,6 +1284,7 @@
              onerror="this.style.display='none'">
       </div>
 
+      <div class="q5-options-legend">Seleccione la opción correcta:</div>
       ${btns}
     `;
 
