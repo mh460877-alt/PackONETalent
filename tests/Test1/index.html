@@ -350,12 +350,12 @@
       border-color: #0b4a6e;
     }
 
-    /* === ESTILOS RESPONSIVOS PARA MÓVIL (CORRECCIÓN) === */
+    /* === ESTILOS RESPONSIVOS PARA MÓVIL (CORRECCIÓN INTEGRADA) === */
     @media (max-width: 768px) {
       
       body {
         padding: 10px !important;
-        background-attachment: scroll !important; /* Evita fondo fijo problemático en móvil */
+        background-attachment: scroll !important;
       }
 
       /* 1. Contenedor a pantalla completa */
@@ -444,6 +444,27 @@
       img {
         max-width: 100% !important;
         height: auto !important;
+      }
+
+      /* === CORRECCIÓN TEST 5: BOTONES ORDENADOS EN FILA === */
+      .q5-options-below {
+        display: flex !important;
+        justify-content: space-between !important; /* Distribuye el espacio */
+        gap: 5px !important; /* Menor espacio para que quepan todos */
+        width: 100% !important;
+        margin-top: 15px !important;
+      }
+
+      .q5-letter-btn {
+        width: auto !important; /* Quitar ancho fijo */
+        flex: 1 !important;     /* Hacer que crezcan todos igual */
+        height: 45px !important; /* Altura cómoda */
+        margin: 0 !important;
+        font-size: 18px !important;
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
       }
     }
 
@@ -667,15 +688,14 @@
   <div id="instSection6" class="section">
     <h2>Test 6: Relaciones Espaciales</h2>
     <div class="instructions-box">
-      <p>Esta prueba consta de 50 ejercicios. En cada uno de ellos se presenta un modelo o patrón en el que algunas zonas están sombreadas.</p>
-      <p><strong>Tarea:</strong> A la derecha de cada modelo se ofrecen cuatro figuras de tres dimensiones. Su tarea consiste en averiguar cuál de esas figuras es la <strong>única</strong> que ha podido formarse a partir del modelo. El modelo siempre presenta la parte exterior de la figura.</p>
+      <p>Esta prueba intenta medir su capacidad para imaginar cómo se verán los objetos en el espacio. Lea cada ejercicio y decida cuál de las figuras de la derecha es la correcta.</p>
     </div>
 
     <div class="example-box">
       <span class="example-label">EJEMPLO</span>
       <img src="./img/espacial/e1.webp" alt="Ejemplo E1" style="max-width: 100%; height: auto; display: block; margin: 15px auto;">
       <p style="text-align: justify; line-height: 1.6; margin-top: 15px;">
-        En el Ejemplo E1 el modelo formará una caja rectangular con las dos caras mayores y una de las pequeñas laterales sombreadas. Fíjese en las respuestas A, B, C y D. Las respuestas A y C son incorrectas porque la cara superior no está sombreada. La respuesta B, tampoco es correcta porque tiene sombreados uno de los laterales largos. La respuesta correcta es D porque la cara superior y uno de los laterales cortos están sombreados. La cara inferior está debajo de la letra D en la línea correspondiente al Ejemplo E1.
+        En este ejemplo, la respuesta correcta es la que corresponde al desplegable.
       </p>
     </div>
 
